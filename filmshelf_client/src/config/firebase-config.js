@@ -10,19 +10,25 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
-    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+    apiKey: "AIzaSyA1XdAictL8tS3QpQUuROzKCL6sRq8VLL4",
+    authDomain: "filmshelf-de256.firebaseapp.com",
+    projectId: "filmshelf-de256",
+    storageBucket: "filmshelf-de256.appspot.com",
+    messagingSenderId: "128798557656",
+    appId: "1:128798557656:web:e88faab0c6bc44ee5ddead",
+    measurementId: "G-B1TB39HP52"
   };
   
   
 
 // Initialize Firebase
+console.log("Before Firebase Initialization"); // Add this before initialization
+
 const app = initializeApp(firebaseConfig);
+
+console.log("Firebase Initialized", app); // This should log your Firebase app
+
+console.log("After Firebase Initialization");
 const analytics = getAnalytics(app);
 const auth = getAuth(app)
 const db = getFirestore(app);
