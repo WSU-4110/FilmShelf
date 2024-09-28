@@ -1,8 +1,3 @@
-.Login-box{
-  border: 3px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-}
+.bg-myColor {
+    background-image: linear-gradient(to right,#823604,#f96400 )
+    }
