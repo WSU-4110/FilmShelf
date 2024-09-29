@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./loginForm.css";
-
+import { Navigate } from "react-router-dom";
 import { auth } from "../../config/firebase-config";
 import { signInWithGoogle, logout } from "../auth";
 
@@ -15,18 +15,16 @@ const LoginForm = () => {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <div className="wrapper">
-      <form action="">
+  if (user) {
+    return <Navigate to="/home" />;
+  } else {
+    return (
+      <div className="wrapper">
         <h1 className="title">Login using Google</h1>
-        {user ? (
-          <button onClick={logout}>Log Out</button>
-        ) : (
-          <button onClick={signInWithGoogle}>Google Sign In</button>
-        )}
-      </form>
-    </div>
-  );
+        <button onClick={signInWithGoogle}>Google Sign In</button>
+      </div>
+    );
+  }
 };
 
 export default LoginForm;
