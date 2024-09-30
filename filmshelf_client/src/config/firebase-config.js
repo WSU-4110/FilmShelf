@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth"
-import { getFirestore } from "firebase/firestore";
+import { getFirestore} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,13 +20,11 @@ const firebaseConfig = {
 
 
 
-// Initialize Firebase
-console.log("Before Firebase Initialization"); // Add this before initialization
+console.log("Before Firebase Initialization");
 
 const app = initializeApp(firebaseConfig);
 
-console.log("Firebase Initialized", app); // This should log your Firebase app
-
+console.log("Firebase Initialized", app);
 console.log("After Firebase Initialization");
 const analytics = getAnalytics(app);
 export const auth = getAuth(app)
