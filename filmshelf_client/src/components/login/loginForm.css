@@ -1,0 +1,48 @@
+.loginContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("../../assets/wallpaper2.jpg") no-repeat;
+    background-size: fill;
+    background-position: center;
+}
+
+.wrapper{
+    width: 420px;
+    height: 500px;
+    background: transparent;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, .2);
+    color: #fff;
+    border: 3px solid rgba(255, 255, 255, .2);
+    border-radius: 10px;
+    padding: 30px 40px;
+
+    
+}
+
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 70px;
+    padding-top: 100px;
+    font-weight: 700;
+}
+
+.wrapper button{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

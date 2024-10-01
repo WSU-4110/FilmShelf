@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavBar } from '../components/nav';
-import { auth } from '../config/firebase-config'; 
+import { NavBar } from "../nav/nav";;
+import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn } from 'mdb-react-ui-kit';
+
 
 function ProfilePage() {
     const [user, setUser] = useState(null);

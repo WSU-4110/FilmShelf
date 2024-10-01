@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { NavBar } from './components/nav'
+import { NavBar } from './components/nav/nav'
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
