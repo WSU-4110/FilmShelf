@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,16 +15,10 @@ const LoginForm = () => {
       if (currentUser) {
         navigate("/");
       }
-      setLoading(false); // Set loading to false after auth state is determined
     });
 
     return () => unsubscribe();
   }, [navigate]);
-
-  // Show loading spinner or placeholder while Firebase checks auth status
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   // Navigate to home if user is logged in
   if (user) {
@@ -34,12 +27,6 @@ const LoginForm = () => {
   }
 
   // Show login form if user is not logged in
-  return (
-    <div className="wrapper">
-      <h1 className="title">Login using Google</h1>
-      <button onClick={signInWithGoogle}>Google Sign In</button>
-    </div>
-  );
   return (
     <div>
       <NavBar />
