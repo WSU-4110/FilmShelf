@@ -7,6 +7,6 @@ The Team:
 * Ibrahim Ivan (itzivan)
 * Ebaad Aziz ()
 * Omair Hashmi (ohashmi21)
-* Syed Shahzaib Azmat ()
+* Syed Shahzaib Azmat ( sidesideangle)
 * Mikolaj Sobiesiuk
 
