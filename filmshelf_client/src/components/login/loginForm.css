@@ -3,7 +3,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url("../../assets/wallpaper2.jpg") no-repeat;
+    background: url("../../assets/wallpaper.jpg") no-repeat;
     background-size: cover;
     background-position: center;
 }
