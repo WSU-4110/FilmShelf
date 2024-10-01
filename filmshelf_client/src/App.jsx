@@ -1,18 +1,16 @@
-import { useState } from "react";
-import "./App.css";
-import { NavBar } from "./components/nav";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Routes, Route } from "react-router-dom";
-import Home from "./components/home/Home";
-import LoginForm from "./components/login/LoginForm";
-
+import { useState } from 'react'
+import './App.css'
+import { NavBar } from './components/nav/nav'
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
+
   return (
-    <Routes>
-      <Route path="/" element={<LoginForm />}></Route>
-      <Route path="home" element={<Home />}></Route>
-    </Routes>
-  );
+    <>
+    <div> 
+      <NavBar/>
+    </div>
+    </>
+  )
 }
 
-export default App;
+export default App
