@@ -1,17 +1,16 @@
 import React from "react";
-import "./home.css";
-import { NavBar } from "../nav/nav";
+import './home.css';
+import { NavBar } from '../nav/nav';
+import SearchBar from '../search/SearchBar';
 
 const Home = () => {
   return (
     <div>
-      <NavBar /> Home page
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-      </ul>
+      <NavBar />
+      <div className="container mt-4">
+        <h1>Home Page</h1>
+        <SearchBar /> {/* The search bar remains in Home */}
+      </div>
     </div>
   );
 };

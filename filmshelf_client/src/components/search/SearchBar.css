@@ -1,0 +1,16 @@
+.search-input-group {
+    position: relative;
+  }
+  
+  .dropdown-container {
+    position: absolute;
+    width: 100%;
+    top: 100%;  /* This positions the dropdown directly below the input field */
+    left: 0;
+    z-index: 1000;  /* Ensure the dropdown stays above other elements */
+  }
+  
+  .dropdown-container .dropdown-menu {
+    width: 100%;
+  }
+  

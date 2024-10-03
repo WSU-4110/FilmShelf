@@ -1,16 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import { NavBar } from './components/nav/nav'
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-function App() {
 
+function App() {
   return (
     <>
-    <div> 
-      <NavBar/>
-    </div>
+      <div className="container mt-4">
+        {/* Main content or components */}
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
