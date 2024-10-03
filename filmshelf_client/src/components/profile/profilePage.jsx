@@ -27,8 +27,8 @@ function ProfilePage() {
                         
                         <MDBRow className="justify-content-center">
                             <MDBCol md="9" lg="7" xl="5" className="mt-5">
-                                <MDBCard style={{ borderRadius: '15px' }}>
-                                        <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/111.webp'/>
+                                <MDBCard style={{ borderRadius: '15px', borderWidth: '0'}}>
+                                        <MDBCardImage style={{borderRadius: '15px 15px 0 0'}}src='https://mdbootstrap.com/img/new/standard/nature/111.webp'/>
                                     <MDBCardBody className="p-4">
                                         <div className="d-flex text-black">
                                             <div className= "flex-shrink-0">   
@@ -41,7 +41,8 @@ function ProfilePage() {
                                                         <a><button>Profile Settings</button></a>
                                                         </div>
 
-                                                <br />
+                                                        <br />
+
                                                 <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                     <div>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
