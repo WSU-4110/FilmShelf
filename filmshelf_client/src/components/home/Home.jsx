@@ -1,13 +1,12 @@
 import React from "react";
 import './home.css';
 import { NavBar } from '../nav/nav';
-import SearchBar from '../search/SearchBar';
 
 const Home = () => {
   //The Featured film (soon to be top films) ETA: \o/
   const featuredItems = {
     id: 0,
-    title: "Popular New Films",
+    title: "Film 0",
     cover: "https://via.placeholder.com/600x400", //Larger placeholder at the top for the big movies can be changed
     description: "This movie is super cool and awesome it was done in a brand new way blah blah blah. This will have the plot, genre, details, and notable cast",
   };
@@ -29,16 +28,17 @@ const Home = () => {
       {/* Main Page setup */}
       <NavBar />
       <header className="home-header">
-        <h1>FilmShelf</h1>
+        <h1>Popular New Films</h1>
       </header>
 
       <main className="home-main">
       {/*Featured FIlm Section */}
+      <div className="featuredinfo">
         <div className="featured-items">
           <img src={featuredItems.cover} alt={featuredItems.title} className="featured-images" />
-          <div className="featuredinfo">
-            <h2>{featuredItems.title}</h2>
-            <p>{featuredItems.description}</p>
+        <div className="description"> </div>
+          <h2>{featuredItems.title}</h2>
+          <p className="description">{featuredItems.description}</p>
           </div>
         </div>
 

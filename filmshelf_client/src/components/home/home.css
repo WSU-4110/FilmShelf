@@ -21,7 +21,7 @@ body {
 
 /* Header styling */
 .home-header {
-  background-color: #21afde00;
+  background-color: #19a7d600;
   color: #b4976b;
   padding: 20px;
   text-align: center;
@@ -36,32 +36,38 @@ body {
 /*Featured Item Section */
 .featured-items {
   display: flex;
-  flex-wrap: wrap;
+  align-items: flex-start;
   background-color: #ffffff00;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #0000001a;
   margin-bottom: 20px;
+  padding: 20px;
 }
+
 
 .featured-images {
-  width: 100%;
-  max-width: 600px;
+  width: 50%;
   height: auto;
+  margin-right: 20px;
 }
 
-.featuredinfo{
-  padding: 20px;
+.featuredinfo div{
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
   flex-grow: 1;
 }
 
 .featuredinfo h2{
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: #333;
 }
 
-.featuredinfo p {
-  color: #f00404;
-  
+.featuredinfo .description {
+  color: #020202;
+  text-align: left;
+  font-size: 16px;
 }
 
 /* Grid layout for updated items */
