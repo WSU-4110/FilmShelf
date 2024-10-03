@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import SearchBar from '../search/SearchBar';
 
-
 export const NavBar = () => {
   const [user, setUser] = useState(null);
 
@@ -24,32 +23,33 @@ export const NavBar = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="navBar px-3">
-
       <Navbar.Brand>
         <Link to="/" className="text-light">
           Filmshelf
         </Link>
       </Navbar.Brand>
-      <Nav.Item> <SearchBar/> </Nav.Item>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Item >
-              {user ? 
+      <Nav.Item><SearchBar/></Nav.Item>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="ms-auto">
+          <Nav.Item>
+            {user ? (
               <NavDropdown title={user.displayName} id="basic-nav-dropdown" align="end">
-                <NavDropdown.Item><Link to="/profilePage" >Profile</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link to="/profilePage" >Movies</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link to="/profilePage" >Lists</Link></NavDropdown.Item>
-                <NavDropdown.Item><Link to="/profilePage" >Reviews</Link></NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/profilePage">Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/movies">Movies</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/lists">Lists</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/reviews">Reviews</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logout}>Log Out</NavDropdown.Item>
               </NavDropdown>
-               : <Link to="/LoginForm" className="ms-2">Login</Link>
-              }
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
+            ) : (
+              <Link to="/LoginForm" className="ms-2 text-light">
+                Login
+              </Link>
+            )}
+          </Nav.Item>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
-
   );
 };
