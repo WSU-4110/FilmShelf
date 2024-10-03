@@ -3,7 +3,7 @@ import { NavBar } from "../nav/nav";;
 import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage } from 'mdb-react-ui-kit';
-
+import "./profilePage.css";
 
 function ProfilePage() {
     const [user, setUser] = useState(null);
@@ -21,6 +21,8 @@ function ProfilePage() {
             <NavBar />
             {user ? (
                 <div className="vh-100">
+                    <div className='profilePageContainer'>
+
                     <MDBContainer>
                         
                         <MDBRow className="justify-content-center">
@@ -34,14 +36,10 @@ function ProfilePage() {
                                             <div className="flex-grow-1 ms-3">
                                                 <MDBCardTitle>{user.displayName}</MDBCardTitle>
                                                 <MDBCardText>{user.email}</MDBCardText> 
-
+                                                    
                                                     <div>
-                                                        <a href="#"><button>Profile Settings</button></a>
+                                                        <a><button>Profile Settings</button></a>
                                                         </div>
-
-                                                        <br />
-
-                                                        <MDBBtn>Profile Settings</MDBBtn>
 
                                                 <br />
                                                 <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
@@ -66,7 +64,8 @@ function ProfilePage() {
                         </MDBRow>
                     </MDBContainer>
 
-                    
+                
+                    </div>
                 </div>
             ) : (
                 <MDBContainer>
