@@ -21,21 +21,34 @@ export const NavBar = () => {
   }, []);
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar bg="dark" variant="dark" expand="lg" className="navBar px-3">
       <Navbar.Brand>
-        {" "}
-        <Link to="/"> Filmshelf</Link>
+        <Link to="/" className="text-light">
+          Filmshelf
+        </Link>
       </Navbar.Brand>
+      <Nav.Item> </Nav.Item>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ms-auto" margin="10px">
+        <Nav className="ms-auto">
           <Nav.Item>
             {user ? (
-              <NavDropdown title={user.displayName} id="basic-nav-dropdown">
+              <NavDropdown
+                title={user.displayName}
+                id="basic-nav-dropdown"
+                align="end"
+              >
                 <NavDropdown.Item>
-                  <Link to="/profilePage" className="me-2">
-                    Profile
-                  </Link>
+                  <Link to="/profilePage">Profile</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/profilePage">Movies</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/profilePage">Lists</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/profilePage">Reviews</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logout}>Log Out</NavDropdown.Item>
