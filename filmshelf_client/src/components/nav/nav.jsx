@@ -8,6 +8,7 @@ import { auth } from '../../config/firebase-config';
 import { signInWithGoogle, logout } from '../auth';
 import { Link } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import SearchBar from '../search/SearchBar';
 
 
 export const NavBar = () => {
@@ -29,7 +30,7 @@ export const NavBar = () => {
           Filmshelf
         </Link>
       </Navbar.Brand>
-      <Nav.Item> </Nav.Item>
+      <Nav.Item> <SearchBar/> </Nav.Item>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

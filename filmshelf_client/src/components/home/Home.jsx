@@ -8,8 +8,6 @@ const Home = () => {
     <div>
       <NavBar />
       <div className="container mt-4">
-        <h1>Home Page</h1>
-        <SearchBar /> {/* The search bar remains in Home */}
       </div>
     </div>
   );
