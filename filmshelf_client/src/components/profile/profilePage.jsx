@@ -27,7 +27,7 @@ function ProfilePage() {
                         
                         <MDBRow className="justify-content-center">
                             <MDBCol md="9" lg="7" xl="5" className="mt-5">
-                                <MDBCard style={{ borderRadius: '15px', borderWidth: '0'}}>
+                                <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
                                         <MDBCardImage style={{borderRadius: '15px 15px 0 0'}}src='https://mdbootstrap.com/img/new/standard/nature/111.webp'/>
                                     <MDBCardBody className="p-4">
                                         <div className="d-flex text-black">
@@ -38,7 +38,9 @@ function ProfilePage() {
                                                 <MDBCardText>{user.email}</MDBCardText> 
                                                     
                                                     <div>
-                                                        <a><button>Profile Settings</button></a>
+                                                        <a>
+                                                            <button>Profile Settings</button>
+                                                            </a>
                                                         </div>
 
                                                         <br />
