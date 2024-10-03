@@ -53,7 +53,7 @@ const LoginForm = () => {
             className="email-input"
           />
           <input
-            type="text"
+            type="password"
             autoComplete="email"
             required
             value={password}
@@ -62,6 +62,7 @@ const LoginForm = () => {
             }}
             placeholder="password"
             className="password-input"
+
           />
           <button className="submit" onClick={onSubmit}>
             Sign in

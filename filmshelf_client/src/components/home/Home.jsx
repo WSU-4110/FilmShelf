@@ -27,6 +27,7 @@ const Home = () => {
     <div className="home-container">
       {/* Main Page setup */}
       <NavBar />
+
       <header className="home-header">
         <h1>Popular New Films</h1>
       </header>
