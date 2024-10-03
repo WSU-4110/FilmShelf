@@ -1,6 +1,7 @@
 import React from "react";
-import "./home.css";
-import { NavBar } from "../nav/nav";
+import './home.css';
+import { NavBar } from '../nav/nav';
+import SearchBar from '../search/SearchBar';
 
 const Home = () => {
   //The Featured film (soon to be top films) ETA: \o/

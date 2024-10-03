@@ -5,7 +5,8 @@
     min-height: 100vh;
     background: url("../../assets/wallpaper2.jpg") no-repeat;
     background-size: fill;
-    background-position: center;
+    background-position: center; 
+
 }
 
 .wrapper{
@@ -21,17 +22,31 @@
 
     
 }
+input{
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding is included in width */
+    padding: 10px; /* Add padding for better spacing inside the input */
+    margin-bottom: 20px; /* Adds space below the input field */
+    border-radius: 5px;
+}
 
 
 .wrapper h1{
     font-size: 36px;
     text-align: center;
-    margin-bottom: 70px;
-    padding-top: 100px;
+    margin-bottom: 20px;
+    padding-top: 50px;
     font-weight: 700;
 }
-
-.wrapper button{
+.submit{
+    width: 30%;
+    height: 10%;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+.sign-in {
     width: 100%;
     height: 45px;
     background: #fff;
@@ -44,5 +59,5 @@
     color: #333;
     font-weight: 700;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
