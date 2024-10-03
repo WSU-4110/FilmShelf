@@ -1,3 +1,143 @@
-body{
-    /* color: blue; */
+/* General reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body and font styling */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #565656;
+}
+
+/* Home container */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styling */
+.home-header {
+  background-color: #565656;
+  color: #000000;
+  padding: 20px;
+  text-align: left;
+}
+
+/* Main content grid */
+.home-main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/*Featured Item Section */
+.featured-items {
+  display: flex;
+  align-items: flex-start;
+  background-color: #C0C0C0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px #00000094;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+
+.featured-images {
+  width: 50%;
+  height: auto;
+  margin-right: 20px;
+}
+
+.featuredinfo div{
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.featuredinfo h2{
+  margin-bottom: 15px;
+  color: #000000;
+}
+
+.featuredinfo .description {
+  color: #000000;
+  text-align: left;
+  font-size: 16px;
+}
+/*Middle just to show the cut off */
+
+.home-middle{
+  background-color: #565656;
+  color: #000000;
+  padding: 20px;
+  text-align: left;
+}
+/* Grid layout for updated items */
+.item-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 30px; 
+  justify-items: center;
+  padding: 20px;
+}
+
+/* Item card styling */
+.item-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px #00000088;
+  padding: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.item-card-content{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.item-card img {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+  border-bottom: none;
+}
+
+.item-details{
+  flex-grow: 1;
+  text-align: left;
+}
+.item-details h3{
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.item-details p{
+  font-size: 14px;
+  color: #565656;
+}
+
+/* Hover effect on items */
+.item-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px #000000bd;
+}
+
+/* Footer styling */
+.home-footer {
+  background-color: #c0c0c000;
+  color: #000000;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
