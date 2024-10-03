@@ -69,7 +69,14 @@ body {
   text-align: left;
   font-size: 16px;
 }
+/*Middle just to show the cut off */
 
+.home-middle{
+  background-color: #19a7d600;
+  color: #b4976b;
+  padding: 20px;
+  text-align: center;
+}
 /* Grid layout for updated items */
 .item-grid {
   display:grid;

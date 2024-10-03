@@ -42,6 +42,10 @@ const Home = () => {
           </div>
         </div>
 
+      <middle className="home-middle">
+        <h1>Latest Film Releases</h1>
+      </middle>
+
         <div className="item-grid">
           {items.map((item) => (
             <div key={item.id} className="item-card">
