@@ -1,7 +1,7 @@
 import React from "react";
 import './home.css';
 import { NavBar } from '../nav/nav';
-
+import { auth } from "../../config/firebase-config";
 const Home = () => {
   //The Featured film (soon to be top films) ETA: \o/
   const featuredItems = {
@@ -49,8 +49,10 @@ const Home = () => {
         <div className="item-grid">
           {items.map((item) => (
             <div key={item.id} className="item-card">
-              <img src={item.cover} alt={item.title} />
-              <p>{item.title}</p>
+              <div className="item-card-content"></div>
+                <img src={item.cover} alt={item.title} />
+                <h3>{item.title}</h3>
+              <p>This is a brief description of {item.title}. This movie is super cool</p>
             </div>
           ))}
         </div>

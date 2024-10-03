@@ -9,7 +9,7 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #705738;
+  background-color: #565656;
 }
 
 /* Home container */
@@ -21,10 +21,10 @@ body {
 
 /* Header styling */
 .home-header {
-  background-color: #19a7d600;
-  color: #b4976b;
+  background-color: #565656;
+  color: #000000;
   padding: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 /* Main content grid */
@@ -37,10 +37,10 @@ body {
 .featured-items {
   display: flex;
   align-items: flex-start;
-  background-color: #ffffff00;
+  background-color: #C0C0C0;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px #0000001a;
+  box-shadow: 0 4px 8px #00000094;
   margin-bottom: 20px;
   padding: 20px;
 }
@@ -61,28 +61,29 @@ body {
 
 .featuredinfo h2{
   margin-bottom: 15px;
-  color: #333;
+  color: #000000;
 }
 
 .featuredinfo .description {
-  color: #020202;
+  color: #000000;
   text-align: left;
   font-size: 16px;
 }
 /*Middle just to show the cut off */
 
 .home-middle{
-  background-color: #19a7d600;
-  color: #b4976b;
+  background-color: #565656;
+  color: #000000;
   padding: 20px;
-  text-align: center;
+  text-align: left;
 }
 /* Grid layout for updated items */
 .item-grid {
   display:grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 30px; 
   justify-items: center;
+  padding: 20px;
 }
 
 /* Item card styling */
@@ -90,32 +91,49 @@ body {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 4px 8px #00000088;
   padding: 10px;
-  transition: transform 0.2s;
+  width: 100%;
+  max-width: 600px;
+}
+
+.item-card-content{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .item-card img {
-  width: 100%;
+  width: 150px;
   height: auto;
-  border-bottom: 1px solid #ddd;
+  margin-right: 20px;
+  border-bottom: none;
 }
 
-.item-card p {
-  margin-top: 10px;
+.item-details{
+  flex-grow: 1;
+  text-align: left;
+}
+.item-details h3{
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.item-details p{
   font-size: 14px;
-  color: #333;
+  color: #565656;
 }
 
 /* Hover effect on items */
 .item-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px #000000bd;
 }
 
 /* Footer styling */
 .home-footer {
-  background-color: #33333300;
+  background-color: #c0c0c000;
   color: #000000;
   text-align: center;
   padding: 10px;
