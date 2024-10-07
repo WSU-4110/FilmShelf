@@ -2,15 +2,27 @@ import React from 'react';
 import { NavBar } from "../nav/nav";;
 import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
+import { db } from '../../config/firebase-config';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage } from 'mdb-react-ui-kit';
+import { getDoc, doc } from 'firebase/firestore';
 import "./profilePage.css";
 
 function ProfilePage() {
     const [user, setUser] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {      
+        const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {      
             setUser(currentUser);
+            if (currentUser) {
+                const userRef = doc(db, "users", currentUser.uid);
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists()) {
+                    setUserInfo(userSnap.data());
+                } else {
+                    console.log("No user information found");
+                }
+            }
         });
 
         return () => unsubscribe();
@@ -48,15 +60,15 @@ function ProfilePage() {
                                                 <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                     <div>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
-                                                        <p className="mb-0">41</p>
+                                                        <p className="mb-0">{userInfo?.watchedMovies ? userInfo.watchedMovies.length : 0}</p>
                                                     </div>
                                                     <div className="px-3">
                                                         <p className="small text-muted mb-1">Reviews</p>
-                                                        <p className="mb-0">976</p>
+                                                        <p className="mb-0">{userInfo?.reviews ? userInfo.reviews.length : 0}</p>
                                                     </div>
                                                     <div>
                                                         <p className="small text-muted mb-1">Followers</p>
-                                                        <p className="mb-0">8.5</p>
+                                                        <p className="mb-0">{userInfo?.followers ? userInfo.followers.length : 0}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -66,8 +78,6 @@ function ProfilePage() {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
-
-                
                     </div>
                 </div>
             ) : (
