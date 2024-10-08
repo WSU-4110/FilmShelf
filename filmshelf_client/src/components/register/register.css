@@ -28,6 +28,7 @@ input {
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
+    border: 0cap;
 }
 
 .wrapper h1 {
@@ -38,17 +39,16 @@ input {
     font-weight: 700;
 }
 
-.buttonGroup button{
-    width: 40%;
-    height: 50px;
+.submit {
+    width: 30%;
+    height: 10%;
     border: none;
     outline: none;
     border-radius: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-right: 10px;
 }
 
-.googleSignIn {
+.register {
     width: 100%;
     height: 45px;
     background: #fff;
@@ -64,3 +64,10 @@ input {
     margin-top: 15px;
 }
 
+.nameFields{
+    display: flex;
+}
+
+.nameFields input{
+    margin-right: 5px;
+}
