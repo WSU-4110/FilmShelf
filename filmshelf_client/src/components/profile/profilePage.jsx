@@ -2,6 +2,7 @@ import React from 'react';
 import { NavBar } from "../nav/nav";;
 import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
+import { db } from '../../config/firebase-config';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage } from 'mdb-react-ui-kit';
 import { fetchUserData } from '../../services/userService'
 
@@ -10,6 +11,7 @@ import "./profilePage.css";
 
 function ProfilePage() {
     const [user, setUser] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
@@ -62,13 +64,16 @@ function ProfilePage() {
                                                     <div>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
                                                         <p className="mb-0">{userInfo?.watchedMovies ? userInfo.watchedMovies.length : 0}</p>
+                                                        <p className="mb-0">{userInfo?.watchedMovies ? userInfo.watchedMovies.length : 0}</p>
                                                     </div>
                                                     <div className="px-3">
                                                         <p className="small text-muted mb-1">Reviews</p>
                                                         <p className="mb-0">{userInfo?.reviews ? userInfo.reviews.length : 0}</p>
+                                                        <p className="mb-0">{userInfo?.reviews ? userInfo.reviews.length : 0}</p>
                                                     </div>
                                                     <div>
                                                         <p className="small text-muted mb-1">Followers</p>
+                                                        <p className="mb-0">{userInfo?.followers ? userInfo.followers.length : 0}</p>
                                                         <p className="mb-0">{userInfo?.followers ? userInfo.followers.length : 0}</p>
                                                     </div>
                                                 </div>
