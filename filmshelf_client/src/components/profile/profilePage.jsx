@@ -2,9 +2,10 @@ import React from 'react';
 import { NavBar } from "../nav/nav";;
 import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
-import { db } from '../../config/firebase-config';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage } from 'mdb-react-ui-kit';
-import { getDoc, doc } from 'firebase/firestore';
+import { fetchUserData } from '../../services/userService'
+
+// import {User} from '../../db/User';
 import "./profilePage.css";
 
 function ProfilePage() {
@@ -12,21 +13,24 @@ function ProfilePage() {
     const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {      
+        const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
             setUser(currentUser);
             if (currentUser) {
-                const userRef = doc(db, "users", currentUser.uid);
-                const userSnap = await getDoc(userRef);
-                if (userSnap.exists()) {
-                    setUserInfo(userSnap.data());
-                } else {
-                    console.log("No user information found");
+                console.log(currentUser.uid);
+                try {
+                    const userData = await fetchUserData(currentUser.uid);
+                    setUserInfo(userData);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
                 }
+            } else {
+                console.log("No user information found");
             }
         });
-
-        return () => unsubscribe();
+    
+        return () => unsubscribe(); 
     }, []);
+    
 
     return (
         <>    
@@ -48,15 +52,12 @@ function ProfilePage() {
                                             <div className="flex-grow-1 ms-3">
                                                 <MDBCardTitle>{user.displayName}</MDBCardTitle>
                                                 <MDBCardText>{user.email}</MDBCardText> 
-                                                    
                                                     <div>
                                                         <a>
                                                             <button>Profile Settings</button>
                                                             </a>
                                                         </div>
-
                                                         <br />
-
                                                 <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                     <div>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
@@ -93,8 +94,6 @@ function ProfilePage() {
                     </MDBRow>
                 </MDBContainer>
             )}
-
-        
         </>
     );
 }

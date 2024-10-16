@@ -39,6 +39,7 @@ const saveUserToFirestore = async (user, email, lastName) => {
     { merge: true }
   );
 };
+
 const register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -105,6 +106,7 @@ const register = () => {
                   setEmail(e.target.value);
                 }}
                 placeholder="email"
+               testing how this works 
                 className="email-input"
               />
               <input

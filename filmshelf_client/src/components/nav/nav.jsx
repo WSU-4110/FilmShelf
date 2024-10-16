@@ -7,15 +7,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { auth } from '../../config/firebase-config'; 
 import { signInWithGoogle, logout } from '../auth';
 import { Link } from 'react-router-dom';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import SearchBar from '../search/SearchBar';
 
 export const NavBar = () => {
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       setUser(currentUser);
+      if (currentUser){
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+            setUserInfo(userSnap.data());
+        } else {
+            console.log("No user information found");
+        }
+      }
     });
 
     return () => unsubscribe();
@@ -34,7 +46,7 @@ export const NavBar = () => {
         <Nav className="ms-auto">
           <Nav.Item>
             {user ? (
-              <NavDropdown title={user.displayName} id="basic-nav-dropdown" align="end">
+              <NavDropdown title={userInfo?.displayName} id="basic-nav-dropdown" align="end">
                 <NavDropdown.Item as={Link} to="/profilePage">Profile</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/movies">Movies</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/lists">Lists</NavDropdown.Item>
