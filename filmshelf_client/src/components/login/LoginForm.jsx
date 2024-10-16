@@ -25,6 +25,7 @@ const LoginForm = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
+      console.log(user);
       if (currentUser) {
         navigate("/");
       }

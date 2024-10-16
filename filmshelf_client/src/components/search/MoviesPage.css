@@ -1,0 +1,86 @@
+/* Style for the movie poster */
+.movie-poster {
+    width: 300px;
+    height: 350px;
+    margin-left: 20px;
+    margin-top: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;  /* Add box-shadow transition */
+    cursor: pointer;
+    border-radius: 10px;
+}
+.movie-poster-container {
+    margin: 10px;
+    position: relative;
+}
+  
+/* Glow effect on hover */
+.movie-poster:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8), 
+                0 0 30px 10px rgba(0, 255, 255, 0.5); 
+}
+  
+/* Apply blur effect to content only when modal is active */
+.blur-background {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+}
+  
+/* Content wrapper for movie posters */
+.content {
+    display: flex;  /* Enable Flexbox */
+    flex-wrap: wrap;          
+    justify-content: center;  
+    margin: 20px;
+}
+  
+/* Modal container */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); 
+    display: flex; /* Centering with Flexbox */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+  
+/* Modal content box */
+.modal-content {
+    background-color: white; 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 50%; 
+    display: flex; /* Use Flexbox for the content */
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8), 
+                0 0 30px 10px rgba(11, 77, 77, 0.5);  /* Glowing effect */
+}
+
+.modal-body {
+    display: flex; /* Align image and text side by side */
+    align-items: center; /* Center vertically */
+}
+
+.modal-poster {
+  width: 150px; /* Set the width for the image */
+  height: auto; 
+  margin-right: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+  
+
+.close {
+    cursor: pointer; 
+    font-size: 24px; 
+    position: absolute; 
+    top: 10px;
+    right: 10px;
+}
+  
+.close:hover {
+    color: #000;
+}
+  
