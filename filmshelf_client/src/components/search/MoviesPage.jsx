@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../nav/nav";
-import "./MoviesPage.css"; // Include your CSS file
-
+import "./MoviesPage.css";
 const MoviesPage = () => {
   const [movieList, setMovieList] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]); // For displaying filtered movies
@@ -9,11 +8,11 @@ const MoviesPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(null); // Track selected genre
   const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
 
+  const apiKey = import.meta.env.VITE_TMDB_API;
+
   // Fetch movies
   const getMovies = () => {
-    fetch(
-      "https://api.themoviedb.org/3/discover/movie?api_key=75376fc32c70731a3eb507d65789e638"
-    )
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`)
       .then((res) => res.json())
       .then((json) => {
         setMovieList(json.results);
@@ -25,7 +24,7 @@ const MoviesPage = () => {
   // Fetch genres
   const getGenres = () => {
     fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=75376fc32c70731a3eb507d65789e638&language=en-US"
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
     )
       .then((res) => res.json())
       .then((json) => setGenres(json.genres))
