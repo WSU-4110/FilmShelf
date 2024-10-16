@@ -12,7 +12,6 @@ import "./profilePage.css";
 function ProfilePage() {
     const [user, setUser] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
-    const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
