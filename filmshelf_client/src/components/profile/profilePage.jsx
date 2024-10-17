@@ -63,16 +63,13 @@ function ProfilePage() {
                                                     <div>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
                                                         <p className="mb-0">{userInfo?.watchedMovies ? userInfo.watchedMovies.length : 0}</p>
-                                                        <p className="mb-0">{userInfo?.watchedMovies ? userInfo.watchedMovies.length : 0}</p>
                                                     </div>
                                                     <div className="px-3">
                                                         <p className="small text-muted mb-1">Reviews</p>
                                                         <p className="mb-0">{userInfo?.reviews ? userInfo.reviews.length : 0}</p>
-                                                        <p className="mb-0">{userInfo?.reviews ? userInfo.reviews.length : 0}</p>
                                                     </div>
                                                     <div>
                                                         <p className="small text-muted mb-1">Followers</p>
-                                                        <p className="mb-0">{userInfo?.followers ? userInfo.followers.length : 0}</p>
                                                         <p className="mb-0">{userInfo?.followers ? userInfo.followers.length : 0}</p>
                                                     </div>
                                                 </div>

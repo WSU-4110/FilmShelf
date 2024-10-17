@@ -14,6 +14,7 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
 const cors = require('cors')({ origin: true });
+const apiKey='75376fc32c70731a3eb507d65789e638'
 
 exports.getUserData = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
@@ -25,7 +26,6 @@ exports.getUserData = functions.https.onRequest((req, res) => {
           console.error("No UID found in the request.");
           return res.status(400).send('User ID (UID) is required.');
       }
-
       try {
           const userDoc = await admin.firestore().collection('users').doc(uid).get();
 
@@ -43,33 +43,22 @@ exports.getUserData = functions.https.onRequest((req, res) => {
   });
 });
 
-
-exports.getCommentById = functions.https.onRequest(async (req, res) => {
-    const id = req.params[0];
-
-    console.log("Received ID:", id);
-
-    if (!id) {
-        console.error("No ID found in request.");
-        return res.status(400).send('Comment ID is required.');
-    }
-
+exports.getPopularMovies = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
     try {
-        const commentDoc = await admin.firestore().collection('comments').doc(id).get();
-
-        if (!commentDoc.exists) {
-            console.warn(`Comment with ID ${id} not found.`);
-            return res.status(404).send(`No comment found with ID: ${id}`);
-        }
-
-        console.log("Comment data:", commentDoc.data());
-        res.status(200).json({ id: commentDoc.id, ...commentDoc.data() });
+      const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&certification.lte=PG-13&certification.gte=G&sort_by=popularity.desc&vote_count.gte=1`);
+      const data = await response.json();
+      if (response.ok) {
+        res.status(200).json(data);
+      } else {
+        res.status(response.status).json({ error: data.status_message });
+      }
     } catch (error) {
-        console.error('Error fetching comment:', error);
-        res.status(500).send('Internal Server Error');
+      console.error("Error fetching movies:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
+  });
 });
-
 
 
 // Create and deploy your first functions

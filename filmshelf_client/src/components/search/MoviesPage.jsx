@@ -1,39 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../nav/nav";
 import "./MoviesPage.css";
+import { fetchMovieData } from "../../services/movieService";
 const MoviesPage = () => {
   const [movieList, setMovieList] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]); // For displaying filtered movies
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState(null); // Track selected genre
-  const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
-
-  const apiKey = import.meta.env.VITE_TMDB_API;
-
-  // Fetch movies
-  const getMovies = () => {
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setMovieList(json.results);
-        setFilteredMovies(json.results); // Set filtered movies initially to all movies
-      })
-      .catch((error) => console.error("Error fetching movies:", error));
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const getMovies =  async () => {
+    try{
+      const movieData = await fetchMovieData();
+      setMovieList(movieData.results);
+      setFilteredMovies(movieData.results);
+    } catch (error){
+      console.error("Error getting movie data: ", error)
+    }
   };
 
-  // Fetch genres
-  const getGenres = () => {
-    fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
-    )
-      .then((res) => res.json())
-      .then((json) => setGenres(json.genres))
-      .catch((error) => console.error("Error fetching genres:", error));
-  };
 
   useEffect(() => {
     getMovies();
-    getGenres();
   }, []);
 
   // Handle when a movie is clicked
@@ -63,26 +50,6 @@ const MoviesPage = () => {
     <div>
       <NavBar />
       <h1>Movies</h1>
-
-      {/* Genre Filter */}
-      <div>
-        <label htmlFor="genre-select">Filter by Genre: </label>
-        <select
-          id="genre-select"
-          onChange={(e) =>
-            filterMoviesByGenre(
-              e.target.value ? parseInt(e.target.value) : null
-            )
-          }
-        >
-          <option value="">All Genres</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <div className="content">
         {filteredMovies.map(
