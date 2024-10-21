@@ -4,9 +4,10 @@ FilmShelf is a web-based social application designed to connect users from aroun
 
 The Team:
 
-* Ibrahim Ivan (itzivan)
-* Ebaad Aziz ()
+* Ibrahim Ivan (itz1van)
+* Ebaad Aziz (eaziz7319)
 * Omair Hashmi (ohashmi21)
-* Syed Shahzaib Azmat ( sidesideangle)
-* Mikolaj Sobiesiuk
+* Syed Shahzaib Azmat (sidesideangle)
+* Mikolaj Sobiesiuk (TTar16)
+
 

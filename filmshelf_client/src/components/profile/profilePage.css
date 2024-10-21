@@ -1,0 +1,9 @@
+.profilePageContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("../../assets/wallpaper4.jpg") no-repeat;
+    background-size: 1920px 1080px;
+    background-position: center; 
+}

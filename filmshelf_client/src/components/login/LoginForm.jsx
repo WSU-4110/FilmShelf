@@ -18,9 +18,14 @@ const LoginForm = () => {
     await doSignInWithEmailAndPassword(email, password);
   };
 
+  const onRegister = () => {
+    navigate("/register");
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
+      console.log(user);
       if (currentUser) {
         navigate("/");
       }
@@ -37,44 +42,50 @@ const LoginForm = () => {
 
   // Show login form if user is not logged in
   return (
-    <div>
+    <>
       <NavBar />
-      <div className="loginContainer">
-        <div className="wrapper">
-          <input
-            type="text"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            placeholder="email"
-            className="email-input"
-          />
-          <input
-            type="text"
-            autoComplete="email"
-            required
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            placeholder="password"
-            className="password-input"
-          />
-          <button className="submit" onClick={onSubmit}>
-            Sign in
-          </button>
-          <h1 className="title">Login using Google</h1>
-          <button className="sign-in" onClick={signInWithGoogle}>
-            Google Sign In
-          </button>
+      <div className="pageContainer">
+        <div className="loginContainer">
+          <div className="wrapper">
+            <input
+              type="text"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              placeholder="email"
+              className="email-input"
+            />
+            <input
+              type="password"
+              autoComplete="email"
+              required
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              placeholder="password"
+              className="password-input"
+            />
+            <div className="buttonGroup">
+              <button className="signIn" onClick={onSubmit}>
+                Sign in
+              </button>
+              <button className="registerButton" onClick={onRegister}>
+                Register
+              </button>
+            </div>
+            <h1 className="title">Login using Google</h1>
+            <button className="googleSignIn" onClick={signInWithGoogle}>
+              Google Sign In
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
-76;
 
 export default LoginForm;
