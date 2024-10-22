@@ -55,14 +55,17 @@ const MoviesPage = () => {
 
   // Filter movies by genre
   const filterMoviesByGenre = (genreId) => {
-    setSelectedGenre(genreId);
-    if (genreId) {
+    if (selectedGenre === genreId) {
+      // If the clicked genre is already selected, reset the filter
+      setSelectedGenre(null);
+      setFilteredMovies(movieList); // Reset to all movies
+    } else {
+      // Otherwise, filter by the selected genre
+      setSelectedGenre(genreId);
       const filtered = movieList.filter((movie) =>
         movie.genre_ids.includes(genreId)
       );
       setFilteredMovies(filtered);
-    } else {
-      setFilteredMovies(movieList); // Reset to all movies if no genre is selected
     }
   };
 
@@ -74,6 +77,11 @@ const MoviesPage = () => {
     setSelectedPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
     console.log(selectedPage);
   };
+  const handleResetFilters = () => {
+    setSelectedGenre(null); // Reset selected genre
+    setSelectedPage(1); // Reset page to 1
+    setFilteredMovies(movieList); // Reset filtered movies to the full movie list
+  };
 
   return (
     <div>
@@ -81,23 +89,64 @@ const MoviesPage = () => {
       <h1>Movies</h1>
 
       {/* Genre Filter */}
-      <div>
-        <label htmlFor="genre-select">Filter by Genre: </label>
-        <select
-          id="genre-select"
-          onChange={(e) =>
-            filterMoviesByGenre(
-              e.target.value ? parseInt(e.target.value) : null
+      <div className="genre-filter-wrapper">
+        {/* Buttons for specific genres */}
+        <div className="genre-buttons-wrapper">
+          {genres
+            .filter((genre) =>
+              ["Action", "Comedy", "Romance", "Adventure", "Horror"].includes(
+                genre.name
+              )
             )
-          }
-        >
-          <option value="">All Genres</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
+            .map((genre) => (
+              <button
+                key={genre.id}
+                className={`genre-button ${
+                  selectedGenre === genre.id ? "active" : ""
+                }`}
+                onClick={() => filterMoviesByGenre(genre.id)}
+              >
+                {genre.name}
+              </button>
+            ))}
+        </div>
+
+        {/* Dropdown for remaining genres */}
+        <div className="genre-dropdown-wrapper">
+          <select
+            id="genre-select"
+            onChange={(e) =>
+              filterMoviesByGenre(
+                e.target.value ? parseInt(e.target.value) : null
+              )
+            }
+          >
+            <option value="">More Genres</option>
+            {genres
+              .filter(
+                (genre) =>
+                  ![
+                    "Action",
+                    "Comedy",
+                    "Romance",
+                    "Adventure",
+                    "Horror",
+                  ].includes(genre.name)
+              )
+              .map((genre) => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {/* Reset Button */}
+        <div className="reset-button-wrapper">
+          <button className="reset-button" onClick={handleResetFilters}>
+            Reset Filters
+          </button>
+        </div>
       </div>
 
       <div className="content">
