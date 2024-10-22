@@ -15,7 +15,12 @@ const LoginForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await doSignInWithEmailAndPassword(email, password);
+    try {
+      await doSignInWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.log(error);
+      alert("Email or password is invalid");
+    }
   };
 
   const onRegister = () => {

@@ -10,9 +10,12 @@ const MoviesPage = () => {
 
   const apiKey = import.meta.env.VITE_TMDB_API;
 
+  //https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1
   // Fetch movies
   const getMovies = () => {
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`)
+    fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=2`
+    )
       .then((res) => res.json())
       .then((json) => {
         setMovieList(json.results);
@@ -20,6 +23,8 @@ const MoviesPage = () => {
       })
       .catch((error) => console.error("Error fetching movies:", error));
   };
+
+  console.log(movieList);
 
   // Fetch genres
   const getGenres = () => {
