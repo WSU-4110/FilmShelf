@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../nav/nav";
 import "./MoviesPage.css";
+
 const MoviesPage = () => {
   const [movieList, setMovieList] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]); // For displaying filtered movies
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(null); // Track selected genre
   const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
+  const [selectedPage, setSelectedPage] = useState(1);
 
   const apiKey = import.meta.env.VITE_TMDB_API;
 
-  //https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1
   // Fetch movies
   const getMovies = () => {
     fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=2`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${selectedPage}`
     )
       .then((res) => res.json())
       .then((json) => {
-        setMovieList(json.results);
-        setFilteredMovies(json.results); // Set filtered movies initially to all movies
+        const filteredMovies = json.results.filter((movie) => !movie.adult); // Filter out adult movies
+        setMovieList(filteredMovies); // Set the filtered list of movies
+        setFilteredMovies(filteredMovies); // Set filtered movies initially to all movies
       })
       .catch((error) => console.error("Error fetching movies:", error));
   };
@@ -39,7 +41,7 @@ const MoviesPage = () => {
   useEffect(() => {
     getMovies();
     getGenres();
-  }, []);
+  }, [selectedPage]); //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
 
   // Handle when a movie is clicked
   const handleMovieClick = (movie) => {
@@ -62,6 +64,15 @@ const MoviesPage = () => {
     } else {
       setFilteredMovies(movieList); // Reset to all movies if no genre is selected
     }
+  };
+
+  const handleNextPage = () => {
+    setSelectedPage((prevPage) => prevPage + 1);
+    console.log(selectedPage);
+  };
+  const handleLastPage = () => {
+    setSelectedPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
+    console.log(selectedPage);
   };
 
   return (
@@ -104,6 +115,10 @@ const MoviesPage = () => {
             )
         )}
       </div>
+      <div className="movie-pages-buttons-wrapper">
+        <button onClick={handleLastPage}>{`<`}</button>
+        <button onClick={handleNextPage}> {`>`} </button>
+      </div>
 
       {/* Conditionally render modal for movie details */}
       {selectedMovie && (
@@ -126,7 +141,7 @@ const MoviesPage = () => {
                 <p>
                   <strong>Overview:</strong> {selectedMovie.overview}
                 </p>
-                {/* Optionally, add more movie details here */}
+                {/* TODO: add more movie details here */}
               </div>
             </div>
           </div>

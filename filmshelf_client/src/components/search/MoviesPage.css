@@ -83,4 +83,39 @@
 .close:hover {
     color: #000;
 }
+
+.movie-pages-buttons-wrapper {
+    display: flex;           /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    margin-top: 20px;        /* Add space above the buttons */
+    margin-bottom: 50px;     /* Add space below the buttons */
+}
+
+.movie-pages-buttons-wrapper button {
+    background-color: #007BFF; /* A nice blue color */
+    color: white;              /* White text for contrast */
+    border: none;              /* Remove default borders */
+    border-radius: 5px;        /* Rounded corners for a modern look */
+    padding: 10px 20px;        /* Spacing inside the button */
+    margin: 0 10px;            /* Space between buttons */
+    font-size: 16px;           /* Make the text size comfortable */
+    font-weight: bold;         /* Bold the text for readability */
+    cursor: pointer;           /* Add a pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Hover effect for buttons */
+.movie-pages-buttons-wrapper button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05);    /* Slightly increase size on hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+/* Active/focused button styling */
+.movie-pages-buttons-wrapper button:active {
+    transform: scale(0.95);    /* Slight "press" effect on click */
+    background-color: #004494; /* Even darker blue on active */
+}
   
