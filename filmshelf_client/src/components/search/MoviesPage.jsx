@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../nav/nav";
 import "./MoviesPage.css";
+
 const MoviesPage = () => {
   const [movieList, setMovieList] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]); // For displaying filtered movies
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(null); // Track selected genre
   const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
+  const [selectedPage, setSelectedPage] = useState(1);
 
   const apiKey = import.meta.env.VITE_TMDB_API;
 
   // Fetch movies
   const getMovies = () => {
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`)
+    fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${selectedPage}`
+    )
       .then((res) => res.json())
       .then((json) => {
-        setMovieList(json.results);
-        setFilteredMovies(json.results); // Set filtered movies initially to all movies
+        const filteredMovies = json.results.filter((movie) => !movie.adult); // Filter out adult movies
+        setMovieList(filteredMovies); // Set the filtered list of movies
+        setFilteredMovies(filteredMovies); // Set filtered movies initially to all movies
       })
       .catch((error) => console.error("Error fetching movies:", error));
   };
+
+  console.log(movieList);
 
   // Fetch genres
   const getGenres = () => {
@@ -34,7 +41,7 @@ const MoviesPage = () => {
   useEffect(() => {
     getMovies();
     getGenres();
-  }, []);
+  }, [selectedPage]); //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
 
   // Handle when a movie is clicked
   const handleMovieClick = (movie) => {
@@ -48,15 +55,32 @@ const MoviesPage = () => {
 
   // Filter movies by genre
   const filterMoviesByGenre = (genreId) => {
-    setSelectedGenre(genreId);
-    if (genreId) {
+    if (selectedGenre === genreId) {
+      // If the clicked genre is already selected, reset the filter
+      setSelectedGenre(null);
+      setFilteredMovies(movieList); // Reset to all movies
+    } else {
+      // Otherwise, filter by the selected genre
+      setSelectedGenre(genreId);
       const filtered = movieList.filter((movie) =>
         movie.genre_ids.includes(genreId)
       );
       setFilteredMovies(filtered);
-    } else {
-      setFilteredMovies(movieList); // Reset to all movies if no genre is selected
     }
+  };
+
+  const handleNextPage = () => {
+    setSelectedPage((prevPage) => prevPage + 1);
+    console.log(selectedPage);
+  };
+  const handleLastPage = () => {
+    setSelectedPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
+    console.log(selectedPage);
+  };
+  const handleResetFilters = () => {
+    setSelectedGenre(null); // Reset selected genre
+    setSelectedPage(1); // Reset page to 1
+    setFilteredMovies(movieList); // Reset filtered movies to the full movie list
   };
 
   return (
@@ -65,23 +89,64 @@ const MoviesPage = () => {
       <h1>Movies</h1>
 
       {/* Genre Filter */}
-      <div>
-        <label htmlFor="genre-select">Filter by Genre: </label>
-        <select
-          id="genre-select"
-          onChange={(e) =>
-            filterMoviesByGenre(
-              e.target.value ? parseInt(e.target.value) : null
+      <div className="genre-filter-wrapper">
+        {/* Buttons for specific genres */}
+        <div className="genre-buttons-wrapper">
+          {genres
+            .filter((genre) =>
+              ["Action", "Comedy", "Romance", "Adventure", "Horror"].includes(
+                genre.name
+              )
             )
-          }
-        >
-          <option value="">All Genres</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
+            .map((genre) => (
+              <button
+                key={genre.id}
+                className={`genre-button ${
+                  selectedGenre === genre.id ? "active" : ""
+                }`}
+                onClick={() => filterMoviesByGenre(genre.id)}
+              >
+                {genre.name}
+              </button>
+            ))}
+        </div>
+
+        {/* Dropdown for remaining genres */}
+        <div className="genre-dropdown-wrapper">
+          <select
+            id="genre-select"
+            onChange={(e) =>
+              filterMoviesByGenre(
+                e.target.value ? parseInt(e.target.value) : null
+              )
+            }
+          >
+            <option value="">More Genres</option>
+            {genres
+              .filter(
+                (genre) =>
+                  ![
+                    "Action",
+                    "Comedy",
+                    "Romance",
+                    "Adventure",
+                    "Horror",
+                  ].includes(genre.name)
+              )
+              .map((genre) => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {/* Reset Button */}
+        <div className="reset-button-wrapper">
+          <button className="reset-button" onClick={handleResetFilters}>
+            Reset Filters
+          </button>
+        </div>
       </div>
 
       <div className="content">
@@ -98,6 +163,10 @@ const MoviesPage = () => {
               </div>
             )
         )}
+      </div>
+      <div className="movie-pages-buttons-wrapper">
+        <button onClick={handleLastPage}>{`<`}</button>
+        <button onClick={handleNextPage}> {`>`} </button>
       </div>
 
       {/* Conditionally render modal for movie details */}
@@ -121,7 +190,7 @@ const MoviesPage = () => {
                 <p>
                   <strong>Overview:</strong> {selectedMovie.overview}
                 </p>
-                {/* Optionally, add more movie details here */}
+                {/* TODO: add more movie details here */}
               </div>
             </div>
           </div>

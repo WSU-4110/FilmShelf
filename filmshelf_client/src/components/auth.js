@@ -18,7 +18,12 @@ export const signInWithGoogle = async () => {
 }
 
 export const doSignInWithEmailAndPassword = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      return signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.log(error);
+      alert("Password Or email does not match");
+    }
 };
 
 /*
