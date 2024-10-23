@@ -9,7 +9,7 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #565656;
+  background-color: #000000;
 }
 
 /* Home container */
@@ -21,8 +21,8 @@ body {
 
 /* Header styling */
 .home-header {
-  background-color: #565656;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   padding: 20px;
   text-align: left;
 }
@@ -33,55 +33,56 @@ body {
   padding: 20px;
 }
 
-/*Featured Item Section */
-.featured-items {
+/* Custom Carousel for Popular Films */
+.popular-carousel {
+  margin-bottom: 20px; /* Space below carousel */
+}
+
+.carousel {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  background-color: #C0C0C0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px #00000094;
-  margin-bottom: 20px;
-  padding: 20px;
+  align-items: center;
 }
 
-
-.featured-images {
-  width: 50%;
-  height: auto;
-  margin-right: 20px;
+.carousel-content {
+  flex: 1;
+  text-align: center;
 }
 
-.featuredinfo div{
-  display: flex;
-  flex-direction: column; 
-  justify-content: flex-start;
-  flex-grow: 1;
+.carousel-item img {
+  width: 100%; /* Adjust width as necessary */
+  height: auto; /* Maintain aspect ratio */
 }
 
-.featuredinfo h2{
-  margin-bottom: 15px;
-  color: #000000;
+.carousel-controls {
+  position: absolute;
+  bottom: 10px; /* Position arrows at the bottom */
+  right: 10px; /* Align to the right */
+  display: flex; /* Flexbox for inline positioning */
+  gap: 10px; /* Space between arrows */
 }
 
-.featuredinfo .description {
-  color: #000000;
-  text-align: left;
-  font-size: 16px;
+.arrow {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
 }
-/*Middle just to show the cut off */
 
-.home-middle{
-  background-color: #565656;
-  color: #000000;
+/* Upcoming Movies Section */
+.home-middle {
+  background-color: #000000;
+  color: #ffffff;
   padding: 20px;
   text-align: left;
 }
-/* Grid layout for updated items */
+
+/* Grid layout for upcoming items */
 .item-grid {
-  display:grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 30px; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
   justify-items: center;
   padding: 20px;
 }
@@ -97,44 +98,43 @@ body {
   max-width: 600px;
 }
 
-.item-card-content{
+/* Upcoming Film Styles */
+.upcoming-film {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: flex-start; /* Align items to the start */
+  margin-bottom: 20px; /* Space between each upcoming film */
 }
 
-.item-card img {
-  width: 150px;
-  height: auto;
-  margin-right: 20px;
-  border-bottom: none;
+.upcoming-film-image {
+  width: 100px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Space between the image and text */
 }
 
-.item-details{
-  flex-grow: 1;
-  text-align: left;
+.upcoming-film-title {
+  font-weight: bold; /* Make the title bold */
+  margin: 0; /* Remove default margin */
 }
-.item-details h3{
-  margin: 0 0 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-.item-details p{
-  font-size: 14px;
-  color: #565656;
+
+.upcoming-film-description {
+  margin: 5px 0 0; /* Space above description */
+  color: #565656; /* Optional: Add a different color for description text */
+  flex-grow: 1; /* Allow description to take available space */
+  overflow: visible; /* Ensure full description is visible */
+  max-height: none; /* Remove any height restriction */
+  word-wrap: break-word; /* Ensure long words break to the next line */
 }
 
 /* Hover effect on items */
 .item-card:hover {
-  transform: scale(1.1);
+  transform: scale(1.05); /* Slightly reduce scale for smoother effect */
   box-shadow: 0 8px 16px #000000bd;
 }
 
 /* Footer styling */
 .home-footer {
   background-color: #c0c0c000;
-  color: #000000;
+  color: #ffffff;
   text-align: center;
   padding: 10px;
   position: relative;

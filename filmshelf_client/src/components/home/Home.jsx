@@ -1,27 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './home.css';
 import { NavBar } from '../nav/nav';
-import { auth } from "../../config/firebase-config";
+
 const Home = () => {
-  //The Featured film (soon to be top films) ETA: \o/
-  const featuredItems = {
-    id: 0,
-    title: "Film 0",
-    cover: "https://via.placeholder.com/600x400", //Larger placeholder at the top for the big movies can be changed
-    description: "This movie is super cool and awesome it was done in a brand new way blah blah blah. This will have the plot, genre, details, and notable cast",
+  const [popularFilms, setPopularFilms] = useState([]);
+  const [upcomingFilms, setUpcomingFilms] = useState([]); // State for upcoming films
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const filmsPerSlide = 1; // Number of films to display per slide
+
+  // Fetch the most popular movies
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_TMDB_API;
+    const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&region=US&page=1`;
+
+    fetch(popularUrl)
+      .then(res => res.json())
+      .then(data => {
+        setPopularFilms(data.results.slice(0, 10)); // Store the top 10 popular movies
+      })
+      .catch(err => console.error('Error fetching popular films:', err));
+  }, []);
+
+  // Fetch upcoming movies for the US region
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_TMDB_API;
+    const upcomingUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&region=US&page=1`; // Added region=US
+
+    fetch(upcomingUrl)
+      .then(res => res.json())
+      .then(data => {
+        setUpcomingFilms(data.results.slice(0, 6)); // Store the first 6 upcoming movies
+      })
+      .catch(err => console.error('Error fetching upcoming films:', err));
+  }, []);
+
+  // Function to go to the next slide
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % popularFilms.length);
   };
 
-
-
-  //The "newer" items that are added to the films and other things
-  const items = [
-    { id: 1, title: "Film 1", cover: "https://via.placeholder.com/150" },
-    { id: 2, title: "Film 2", cover: "https://via.placeholder.com/150" },
-    { id: 3, title: "Film 3", cover: "https://via.placeholder.com/150" },
-    { id: 4, title: "Film 4", cover: "https://via.placeholder.com/150" },
-    { id: 5, title: "Film 5", cover: "https://via.placeholder.com/150" },
-    { id: 6, title: "Film 6", cover: "https://via.placeholder.com/150" },
-  ];
+  // Function to go to the previous slide
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + popularFilms.length) % popularFilms.length);
+  };
 
   return (
     <div className="home-container">
@@ -29,31 +50,45 @@ const Home = () => {
       <NavBar />
 
       <header className="home-header">
-        <h1>Popular New Films</h1>
+        <h1>Most Popular Movies</h1>
       </header>
 
       <main className="home-main">
-      {/*Featured FIlm Section */}
-      <div className="featuredinfo">
-        <div className="featured-items">
-          <img src={featuredItems.cover} alt={featuredItems.title} className="featured-images" />
-        <div className="description"> </div>
-          <h2>{featuredItems.title}</h2>
-          <p className="description">{featuredItems.description}</p>
-          </div>
+        {/* Custom Carousel for Popular Films */}
+        <div className="popular-carousel">
+          {popularFilms.length > 0 && (
+            <div className="carousel">
+              <div className="carousel-content">
+                <div className="carousel-item">
+                  <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${popularFilms[currentSlide].poster_path}`} alt={popularFilms[currentSlide].title} />
+                  <h3>{popularFilms[currentSlide].title}</h3>
+                  <p>{popularFilms[currentSlide].overview.substring(0, 100)}...</p>
+                  <p><strong>Genres:</strong> {popularFilms[currentSlide].genre_ids.join(', ')}</p> {/* Display genres */}
+                </div>
+              </div>
+              <div className="carousel-controls">
+                <button onClick={prevSlide} className="arrow left-arrow">&#9664;</button>
+                <button onClick={nextSlide} className="arrow right-arrow">&#9654;</button>
+              </div>
+            </div>
+          )}
         </div>
 
-      <middle className="home-middle">
-        <h1>Latest Film Releases</h1>
-      </middle>
+        {/* Upcoming Movies */}
+        <section className="home-middle">
+          <h1>Upcoming Movies</h1> {/* Changed header to Upcoming Movies */}
+        </section>
 
         <div className="item-grid">
-          {items.map((item) => (
-            <div key={item.id} className="item-card">
-              <div className="item-card-content"></div>
-                <img src={item.cover} alt={item.title} />
-                <h3>{item.title}</h3>
-              <p>This is a brief description of {item.title}. This movie is super cool</p>
+          {upcomingFilms.map((film) => (
+            <div key={film.id} className="item-card">
+              <div className="upcoming-film">
+                <img src={`https://image.tmdb.org/t/p/w200/${film.poster_path}`} alt={film.title} className="upcoming-film-image" />
+                <div className="upcoming-film-info">
+                  <h3 className="upcoming-film-title">{film.title}</h3>
+                  <p className="upcoming-film-description">{film.overview.substring(0, 100)}...</p> {/* Shorten description for cards */}
+                </div>
+              </div>
             </div>
           ))}
         </div>
