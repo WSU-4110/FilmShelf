@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../nav/nav";
 import { auth, db } from '../../config/firebase-config';
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteField} from "firebase/firestore";
 import "./MoviesPage.css";
 
 const MoviesPage = () => {
@@ -14,18 +14,34 @@ const MoviesPage = () => {
   const [selectedValue, setSelectedValue] = useState('None');
   const apiKey = import.meta.env.VITE_TMDB_API;
 
-  // Handle rating value change from the select element
   const handleSelectChange = async (e) => {
     const value = e.target.value === 'None' ? null : parseInt(e.target.value);
     setSelectedValue(e.target.value);
-
     const uid = auth.currentUser?.uid;
     if (uid && selectedMovie) {
+      if (value===null){
+        deleteMovieFromWatched(uid, selectedMovie.id.toString())
+      }
+      else{
       await updateMovieRating(uid, selectedMovie.id.toString(), value); 
+      }
     }
   };
 
+  const deleteMovieFromWatched = async (uid, movieId) => {
+    try {
+      const userRef = doc(db, "users", uid);
   
+      await updateDoc(userRef, {
+        [`watchedMovies.${movieId}`]: deleteField(),
+      });
+  
+      console.log(`Movie ${movieId} removed from watchedMovies.`);
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+    }
+  };
+
   const checkIfMovieRated = async (uid, movieId) => {
     try {
       const userRef = doc(db, "users", uid);
