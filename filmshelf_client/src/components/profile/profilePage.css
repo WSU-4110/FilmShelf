@@ -29,6 +29,10 @@
   background-color: #0e4bf1;
 }
 
+.buttons .button:active {
+    background-color: #4070f4;
+}
+
 .buttonMW, .buttonR, .buttonF {
     border-radius: 15px;
     border: none;
@@ -37,12 +41,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100px; /* Set a consistent width */
-    height: 100px; /* Set a consistent height */
-    justify-content: center; /* Center content inside the button */
+    width: 100px; 
+    height: 100px; 
+    justify-content: center; 
     padding: 10px;
-    margin: 0 10px; /* Even spacing between buttons */
+    margin: 0 10px; 
     margin-left: 20px;
+    
 }
 
 button.box-icon {
@@ -60,18 +65,17 @@ button.box-icon {
   align-items: center; /* Vertically align the buttons */
 }
     
-
-
 .buttonMW:hover, .buttonR:hover, .buttonF:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background-color: hsl(0, 0%, 78%);
 }
 
-
-
 .buttonMW:active, .buttonR:active, .buttonF:active {
      transform: translateY(4px);
 }
+
+
+
 
 
 

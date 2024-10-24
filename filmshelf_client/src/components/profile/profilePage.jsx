@@ -30,7 +30,7 @@ function ProfilePage() {
                     <MDBRow className="justify-content-center">
                         <MDBCol md="9" lg="7" xl="5" className="mt-5">
                             <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue', height: '825px'}}>
-                                <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0', width: '100%', height: 'auto'}}src={profilePic}/>
+                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0', width: '100%', height: 'auto'}}src={profilePic}/>   
                                     <MDBCardBody className="p-4">
                                         <div className="d-flex text-black">
                                             <div className= "flex-shrink-0">   
