@@ -23,20 +23,30 @@
 .buttonMW {
     border: #fff;
     border-radius: 15px;
+    
 }
 
 .buttonMW:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: hsl(0, 0%, 78%);
+}
+
+.buttonMW:active {
+     transform: translateY(4px);
 }
 
 .buttonR {
     border: #fff;
     border-radius: 15px;
-    
 }
 
 .buttonR:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: hsl(0, 0%, 78%);
+}
+
+.buttonR:active {
+    transform: translateY(4px);
 }
 
 .buttonF {
@@ -47,5 +57,11 @@
 
 .buttonF:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: hsl(0, 0%, 78%);
 }
+
+.buttonF:active {
+    transform: translateY(4px);
+}
+
 

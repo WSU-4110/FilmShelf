@@ -43,6 +43,8 @@ function ProfilePage() {
                                                 <div className='buttons'>
                                                     <button className='button' >Profile Settings</button>
                                                 </div>
+
+                                                
                                                 
                                                 <br />
                                                 
