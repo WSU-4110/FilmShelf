@@ -33,41 +33,48 @@ body {
   padding: 20px;
 }
 
-/* Custom Carousel for Popular Films */
+/* Swiper styling */
 .popular-carousel {
-  margin-bottom: 20px; /* Space below carousel */
+  margin-bottom: 20px;
 }
 
-.carousel {
-  position: relative;
+.swiper-slide-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.carousel-content {
-  flex: 1;
+.swiper-image {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.swiper-info {
   text-align: center;
 }
 
-.carousel-item img {
-  width: 100%; /* Adjust width as necessary */
-  height: auto; /* Maintain aspect ratio */
+.swiper-info h3 {
+  color: black;
+  margin-top: 10px;
 }
 
-.carousel-controls {
-  position: absolute;
-  bottom: 10px; /* Position arrows at the bottom */
-  right: 10px; /* Align to the right */
-  display: flex; /* Flexbox for inline positioning */
-  gap: 10px; /* Space between arrows */
+.swiper-info p {
+  color: #555;
 }
 
-.arrow {
-  background: none;
-  border: none;
+/* Swiper pagination styling */
+.swiper-pagination-bullet {
+  background-color: #fff;
+}
+
+.swiper-button-prev, .swiper-button-next {
   color: white;
-  font-size: 24px;
-  cursor: pointer;
 }
 
 /* Upcoming Movies Section */
@@ -101,33 +108,30 @@ body {
 /* Upcoming Film Styles */
 .upcoming-film {
   display: flex;
-  align-items: flex-start; /* Align items to the start */
-  margin-bottom: 20px; /* Space between each upcoming film */
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
 .upcoming-film-image {
-  width: 100px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-right: 20px; /* Space between the image and text */
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
 }
 
 .upcoming-film-title {
-  font-weight: bold; /* Make the title bold */
-  margin: 0; /* Remove default margin */
+  font-weight: bold;
+  margin: 0;
 }
 
 .upcoming-film-description {
-  margin: 5px 0 0; /* Space above description */
-  color: #565656; /* Optional: Add a different color for description text */
-  flex-grow: 1; /* Allow description to take available space */
-  overflow: visible; /* Ensure full description is visible */
-  max-height: none; /* Remove any height restriction */
-  word-wrap: break-word; /* Ensure long words break to the next line */
+  margin: 5px 0 0;
+  color: #565656;
+  flex-grow: 1;
+  word-wrap: break-word;
 }
 
-/* Hover effect on items */
 .item-card:hover {
-  transform: scale(1.05); /* Slightly reduce scale for smoother effect */
+  transform: scale(1.05);
   box-shadow: 0 8px 16px #000000bd;
 }
 
@@ -141,3 +145,33 @@ body {
   bottom: 0;
   width: 100%;
 }
+
+/* Modal container */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 50%;
+  display: flex;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8),
+              0 0 30px 10px rgba(11, 77, 77, 0.5);
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+}
+
