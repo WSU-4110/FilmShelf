@@ -13,4 +13,52 @@
   .dropdown-container .dropdown-menu {
     width: 100%;
   }
+
+  .search-input-group {
+    position: relative;
+    width: 100%;
+  }
+  
+  
+  .dropdown-item-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-item-poster {
+    width: 50px; /* Adjust the size of the poster */
+    height: auto;
+    margin-right: 10px; /* Add space between the poster and the title */
+  }
+  
+  .dropdown-item-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dropdown-item-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px; /* Adjust the maximum width for the title */
+  }
+  
+  .dropdown-item-subtitle {
+    font-size: 12px; /* Smaller font for release year and director */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+  
+  .dropdown-item-subtitle strong {
+    font-weight: bold; /* Bold the director's name */
+  }
+  
+  .dropdown-item {
+    height: 70px; /* Make the item height taller to fit the poster and title */
+    display: flex;
+    align-items: center;
+  }
+  
   
