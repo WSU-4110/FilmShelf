@@ -1,8 +1,18 @@
-import React from 'react';
-import { NavBar } from "../nav/nav";;
-import { auth } from '../../config/firebase-config'; 
-import { useState, useEffect } from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage, MDBIcon } from 'mdb-react-ui-kit';
+import React, { useState, useEffect } from 'react';
+import { NavBar } from "../nav/nav";
+import { auth, db } from '../../config/firebase-config'; // Consolidated imports from firebase-config.
+import { doc, getDoc } from "firebase/firestore";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBIcon
+} from 'mdb-react-ui-kit';
 import "./profilePage.css";
 import profilePic from '../../assets/profileImage.jpg';
 import 'boxicons'
@@ -12,20 +22,33 @@ import { useNavigate } from 'react-router-dom';
 
 
 function ProfilePage() {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null); // Stores authenticated user.
+  const [userInfo, setUserInfo] = useState(null); // Stores Firestore user data.
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {      
-            setUser(currentUser);
-        });
+  // Fetch user and Firestore data on authentication state change.
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      setUser(currentUser); // Set the current authenticated user.
+      if (currentUser) {
+        try {
+          const userRef = doc(db, "users", currentUser.uid); // Reference Firestore doc.
+          const userSnap = await getDoc(userRef); // Fetch Firestore data.
+          if (userSnap.exists()) {
+            setUserInfo(userSnap.data()); // Store user data if available.
+            console.log(userInfo)
+            console.log(userSnap.data());
+          } else {
+            console.log("No user information found");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    });
 
-        return () => unsubscribe();
-    }, []);
-
-    const onProfileSettings = () => {
-        navigate("/profileSettings")
-    };
+    return () => unsubscribe(); // Cleanup on unmount.
+  }, []);
 
     return (
         <>    
@@ -73,7 +96,11 @@ function ProfilePage() {
                                                     <button className='buttonMW'>
                                                         <box-icon name='camera-movie' alt='Movies Watched'></box-icon>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
-                                                        <p className="mb-0">41</p>
+                                                        <p className="mb-0">
+                                {userInfo?.watchedMovies
+                                  ? Object.keys(userInfo.watchedMovies).length
+                                  : 0}
+                              </p>
                                                     </button>
                                                     
                                                 </div>
@@ -82,7 +109,11 @@ function ProfilePage() {
                                                     <button className='buttonR'>
                                                         <box-icon name='comment-detail'></box-icon>
                                                         <p className="small text-muted mb-1">Reviews</p>
-                                                        <p className="mb-0">976</p>
+                                                        <p className="mb-0">
+                                {userInfo?.reviews
+                                  ? userInfo.reviews.size
+                                  : 0}
+                              </p>
                                                     </button>
                                                     
                                                 </div>
@@ -91,7 +122,11 @@ function ProfilePage() {
                                                     <button className='buttonF'>
                                                     <box-icon name='user'></box-icon>
                                                     <p className="small text-muted mb-1">Followers</p>
-                                                    <p className="mb-0">8.5</p>
+                                                    <p className="mb-0">
+                                          {userInfo?.followers
+                                            ? userInfo.followers.length
+                                            : 0}
+                                        </p>
                                                     </button>
                                                     
                                                     
@@ -126,7 +161,5 @@ function ProfilePage() {
         </>
     );
 }
-
-
 
 export default ProfilePage;

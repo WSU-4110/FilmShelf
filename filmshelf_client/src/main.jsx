@@ -10,6 +10,7 @@ import MoviesPage from "./components/search/MoviesPage"; // Update to reflect se
 import TvShowsPage from "./components/search/TvShowsPage"; // Update to reflect search folder
 import UsersPage from "./components/search/UsersPage"; // Update to reflect search folder
 import Register from "./components/register/register.jsx";
+import WatchedMovies from "./components/profile/watchedMovies/watchedMovies";
 import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     path: "/register", // New route for Users
     element: <Register />,
   },
+  {
+    path:"/watchedMovies",
+    element: <WatchedMovies/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
