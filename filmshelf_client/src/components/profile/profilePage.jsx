@@ -41,7 +41,7 @@ function ProfilePage() {
                     <MDBRow className="justify-content-center">
                         <MDBCol md="9" lg="7" xl="5" className="mt-5">
                             <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
-                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0'}}src={profilePic}/>   
+                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0'}} src={profilePic}/>   
                                     <MDBCardBody className="p-4">
                                         <div className="d-flex text-black">
                                             <div className= "flex-shrink-0">   

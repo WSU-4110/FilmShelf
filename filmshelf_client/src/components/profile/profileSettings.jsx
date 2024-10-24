@@ -25,8 +25,9 @@ function ProfileSettings() {
             <MDBContainer >
                 <MDBRow className="justify-content-center">
                     <MDBCol md="9" lg="7" xl="5" className="mt-5">
-                        <img src='https://mdbootstrap.com/img/new/slides/041.webp' className='img-fluid shadow-4 rounded-circle' alt='...' />
-                        
+                        <img style={{borderRadius: '50%', height:'200px', width:'200px', alignContent:'center'}} src={profilePic} className='img-fluid shadow-4' alt='...' />
+                        <p>{user.displayName}</p>
+                        <p>{user.email}</p>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
