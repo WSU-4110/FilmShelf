@@ -4,7 +4,8 @@ import { auth } from '../../config/firebase-config';
 import { useState, useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage } from 'mdb-react-ui-kit';
 import "./profilePage.css";
-import profilePic from '../../assets/profileImage.jpg'
+import profilePic from '../../assets/profileImage.jpg';
+import 'boxicons'
 
 function ProfilePage() {
     const [user, setUser] = useState(null);
@@ -29,18 +30,18 @@ function ProfilePage() {
                     <MDBRow className="justify-content-center">
                         <MDBCol md="9" lg="7" xl="5" className="mt-5">
                             <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
-                                    <MDBCardImage style={{borderRadius: '15px 15px 0 0'}}src='https://mdbootstrap.com/img/new/standard/nature/111.webp'/>
-                                <MDBCardBody className="p-4">
-                                    <div className="d-flex text-black">
-                                        <div className= "flex-shrink-0">   
+                                <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0', width: '100%', height: 'auto'}}src={profilePic}/>
+                                    <MDBCardBody className="p-4">
+                                        <div className="d-flex text-black">
+                                            <div className= "flex-shrink-0">   
                                         </div>
-                                        <div className="flex-grow-1 ms-3">
-                                            <MDBCardTitle>{user.displayName}</MDBCardTitle>
-                                            <MDBCardText>{user.email}</MDBCardText> 
+                                            <div className="flex-grow-1 ms-3">
+                                                <MDBCardTitle>{user.displayName}</MDBCardTitle>
+                                                <MDBCardText>{user.email}</MDBCardText> 
                                                 
                                                 
                                                 <div className='buttons'>
-                                                    <button className='button'>Profile Settings</button>
+                                                    <button className='button' >Profile Settings</button>
                                                 </div>
                                                 
                                                 <br />
@@ -52,10 +53,12 @@ function ProfilePage() {
 
                                             <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                 <div>
+                                                    
                                                     <p className="small text-muted mb-1">Movies Watched</p>
                                                     <p className="mb-0">41</p>
                                                 </div>
                                                 <div className="px-3">
+
                                                     <p className="small text-muted mb-1">Reviews</p>
                                                     <p className="mb-0">976</p>
                                                 </div>

@@ -19,3 +19,8 @@
 .buttons .button:hover {
   background-color: #0e4bf1;
 }
+
+.profilePageContainer .cardImage {
+  width: 100%; 
+  height: auto;
+}
