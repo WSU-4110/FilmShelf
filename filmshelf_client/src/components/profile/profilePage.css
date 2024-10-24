@@ -74,6 +74,11 @@ button.box-icon {
      transform: translateY(4px);
 }
 
+.profilePageContainer .cardImage {
+    height: auto;
+    width: auto;
+}
+
 
 
 

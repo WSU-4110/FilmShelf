@@ -1,0 +1,10 @@
+.profileSettingsButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.chngAcc, .chngPass, .chngImg {
+
+}

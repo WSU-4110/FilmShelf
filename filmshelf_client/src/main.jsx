@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import ProfilePage from "./components/profile/profilePage.jsx";
+import ProfileSettings from "./components/profile/profileSettings.jsx";
 import LoginForm from "./components/login/LoginForm.jsx";
 import Home from "./components/home/Home";
 import MoviesPage from "./components/search/MoviesPage"; // Update to reflect search folder
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "profilePage",
     element: <ProfilePage />, // Keep the existing Profile page route
+  },
+  {
+    path: "profileSettings",
+    element: <ProfileSettings/>,
   },
   {
     path: "LoginForm",

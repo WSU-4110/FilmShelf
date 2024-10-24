@@ -2,13 +2,18 @@ import React from 'react';
 import { NavBar } from "../nav/nav";;
 import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage, MDBIcon } from 'mdb-react-ui-kit';
 import "./profilePage.css";
 import profilePic from '../../assets/profileImage.jpg';
 import 'boxicons'
+import Boxicons from 'boxicons';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 function ProfilePage() {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {      
@@ -17,6 +22,10 @@ function ProfilePage() {
 
         return () => unsubscribe();
     }, []);
+
+    const onProfileSettings = () => {
+        navigate("/profileSettings")
+    };
 
     return (
         <>    
@@ -29,8 +38,8 @@ function ProfilePage() {
                     
                     <MDBRow className="justify-content-center">
                         <MDBCol md="9" lg="7" xl="5" className="mt-5">
-                            <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue', height: '825px'}}>
-                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0', width: '100%', height: 'auto'}}src={profilePic}/>   
+                            <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
+                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0'}}src={profilePic}/>   
                                     <MDBCardBody className="p-4">
                                         <div className="d-flex text-black">
                                             <div className= "flex-shrink-0">   
@@ -38,12 +47,14 @@ function ProfilePage() {
                                             <div className="flex-grow-1 ms-3">
                                                 <MDBCardTitle>{user.displayName}</MDBCardTitle>
                                                 <MDBCardText>{user.email}</MDBCardText> 
+
+                                                
                                                 
                                                 
                                                 
                                                 
                                                 <div className='buttons'>
-                                                    <button className='button' >Profile Settings</button>
+                                                        <button className='button' onClick={onProfileSettings}>Profile Settings</button>
                                                 </div>
 
                                                 
