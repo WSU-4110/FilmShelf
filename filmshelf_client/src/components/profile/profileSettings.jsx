@@ -21,9 +21,18 @@ function ProfileSettings() {
     return (
         <>
             <NavBar/>
+
+            <MDBContainer >
+                <MDBRow className="justify-content-center">
+                    <MDBCol md="9" lg="7" xl="5" className="mt-5">
+                        <img src='https://mdbootstrap.com/img/new/slides/041.webp' className='img-fluid shadow-4 rounded-circle' alt='...' />
+                        
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
             
             <MDBContainer >
-                <MDBRow className="justify-content-center" style={{marginTop:'200px'}}>
+                <MDBRow className="justify-content-center">
                     <MDBCol md="9" lg="7" xl="5" className="mt-5">
                         <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
                             <MDBCardBody className='p-4'>

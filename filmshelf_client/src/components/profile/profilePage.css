@@ -56,13 +56,13 @@ button.box-icon {
 }
 
 .small {
-  font-size: 12px; /* Ensure consistent font size */
+  font-size: 12px; 
 }
 
 .d-flex.justify-content-start {
   display: flex;
-  justify-content: space-between; /* Evenly space the buttons */
-  align-items: center; /* Vertically align the buttons */
+  justify-content: space-between; 
+  align-items: center; 
 }
     
 .buttonMW:hover, .buttonR:hover, .buttonF:hover {

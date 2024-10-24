@@ -3,8 +3,28 @@
     flex-direction: row;
     justify-content: space-between;
     
+    
 }
 
-.chngAcc, .chngPass, .chngImg {
+.chngAcc, .chngPass, .chngImg{
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100px; 
+    height: 100px; 
+    justify-content: center; 
+    padding: 10px;
+    margin: 0 10px; 
+}
 
+.chngAcc:hover, .chngPass:hover, .chngImg:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: hsl(0, 0%, 78%);
+}
+
+.chngAcc:active, .chngPass:active, .chngImg:active{
+    transform: translateY(4px);
 }

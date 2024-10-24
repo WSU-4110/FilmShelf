@@ -30,6 +30,8 @@ function ProfilePage() {
     return (
         <>    
             <NavBar />
+
+            
             {user ? (
                 <div className="vh-100">
                 <div className='profilePageContainer'>
