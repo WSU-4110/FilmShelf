@@ -5,11 +5,12 @@ import App from "./App.jsx";
 import ProfilePage from "./components/profile/profilePage.jsx";
 import LoginForm from "./components/login/LoginForm.jsx";
 import Home from "./components/home/Home";
-import MoviesPage from "./components/search/MoviesPage"; // Update to reflect search folder
-import TvShowsPage from "./components/search/TvShowsPage"; // Update to reflect search folder
-import UsersPage from "./components/search/UsersPage"; // Update to reflect search folder
+import MoviesPage from "./components/search/MoviesPage"; 
+import TvShowsPage from "./components/search/TvShowsPage"; 
+import UsersPage from "./components/search/UsersPage"; 
 import Register from "./components/register/register.jsx";
 import WatchedMovies from "./components/profile/watchedMovies/watchedMovies";
+import MovieDetailsPage from "./components/search/MovieDetailsPage"; // Import the MovieDetailsPage component
 import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -17,30 +18,34 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />, // Keep the existing Home route
+    element: <Home />, // Home route
   },
   {
     path: "profilePage",
-    element: <ProfilePage />, // Keep the existing Profile page route
+    element: <ProfilePage />, // Profile page route
   },
   {
     path: "LoginForm",
-    element: <LoginForm />, // Keep the existing Login page route
+    element: <LoginForm />, // Login form route
   },
   {
-    path: "/movies", // New route for Movies
+    path: "/movies", // Movies list route
     element: <MoviesPage />,
   },
   {
-    path: "/tvshows", // New route for TV Shows
+    path: "/movies/:id", //movie information route
+    element: <MovieDetailsPage />, 
+  },
+  {
+    path: "/tvshows", // TV Shows list route
     element: <TvShowsPage />,
   },
   {
-    path: "/users", // New route for Users
+    path: "/users", // Users list route
     element: <UsersPage />,
   },
   {
-    path: "/register", // New route for Users
+    path: "/register", // Register page route
     element: <Register />,
   },
   {
