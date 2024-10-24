@@ -37,10 +37,65 @@ body {
 .popular-carousel {
   margin-bottom: 20px;
 }
+/* arrow works */
+.swiper-container{
+  position: relative;
+}
+
+.swiper-button-prev, .swiper-button-next{
+  display: none;
+}
+
+.custom-navigation {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Add "No.#" label */
+.swiper-slide-number {
+  position: absolute;
+  bottom: 10px;
+  right: 180px;
+  color: black;
+  font-size: 16px;
+  z-index: 10;
+}
+
+.custom-arrow {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-left: 5px; /* Space between the arrows */
+}
+
+.custom-arrow:hover {
+  background-color: #333;
+}
+
+/* Adjust the text block to show more */
+.swiper-info {
+  flex-grow: 1;
+  text-align: left;
+  padding: 10px;
+}
+
+.swiper-info p {
+  color: #555;
+  max-height: 150px; /* Increase the height to allow for more text */
+  overflow: hidden;
+}
 
 .swiper-slide-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: white;
@@ -49,19 +104,21 @@ body {
 }
 
 .swiper-image {
-  width: 100%;
-  max-width: 300px;
+  width: 250px;
+  height: auto;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-right: 50px;
 }
-
+/*Text location and setup*/
 .swiper-info {
-  text-align: center;
+  flex-grow: 1;
+  text-align: left;
 }
 
 .swiper-info h3 {
   color: black;
-  margin-top: 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .swiper-info p {

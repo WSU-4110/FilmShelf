@@ -79,6 +79,8 @@ const Home = () => {
                   <h3>{film.title}</h3>
                   <p>{film.overview.substring(0, 100)}...</p>
                 </div>
+                {/*Slide Number */}
+                <div className="swiper-slide-number">No. {index +1 }</div>
               </div>
             </SwiperSlide>
           ))}
