@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
 .profilePageContainer .buttons {
     display:flex;
   margin-top: 10px;
@@ -20,48 +29,23 @@
   background-color: #0e4bf1;
 }
 
-.buttonMW {
+.buttonMW, .buttonR, .buttonF {
     border: #fff;
     border-radius: 15px;
     
 }
 
-.buttonMW:hover {
+.buttonMW:hover, .buttonR:hover, .buttonF:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background-color: hsl(0, 0%, 78%);
 }
 
-.buttonMW:active {
+.buttonMW:active, .buttonR:active, .buttonF:active {
      transform: translateY(4px);
 }
 
-.buttonR {
-    border: #fff;
-    border-radius: 15px;
-}
 
-.buttonR:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    background-color: hsl(0, 0%, 78%);
-}
 
-.buttonR:active {
-    transform: translateY(4px);
-}
 
-.buttonF {
-    border: #fff;
-    border-radius: 15px;
-    
-}
-
-.buttonF:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    background-color: hsl(0, 0%, 78%);
-}
-
-.buttonF:active {
-    transform: translateY(4px);
-}
 
 
