@@ -6,4 +6,4 @@ export interface User {
     email?: string;
     lastLogin: Date;
     age: Number;
-  }
+}

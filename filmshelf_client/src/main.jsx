@@ -9,6 +9,7 @@ import MoviesPage from "./components/search/MoviesPage";
 import TvShowsPage from "./components/search/TvShowsPage"; 
 import UsersPage from "./components/search/UsersPage"; 
 import Register from "./components/register/register.jsx";
+import WatchedMovies from "./components/profile/watchedMovies/watchedMovies";
 import MovieDetailsPage from "./components/search/MovieDetailsPage"; // Import the MovieDetailsPage component
 import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     path: "/register", // Register page route
     element: <Register />,
   },
+  {
+    path:"/watchedMovies",
+    element: <WatchedMovies/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -1,7 +1,7 @@
 import { auth, googleProvider} from "../config/firebase-config"
 import { signInWithPopup, signOut } from "firebase/auth"
 import { db } from "../config/firebase-config"
-import { doc, setDoc} from "firebase/firestore"
+import { doc, setDoc, getDoc} from "firebase/firestore"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, updatePassword} from "firebase/auth"
 import { useEffect } from "react"
 
@@ -18,7 +18,12 @@ export const signInWithGoogle = async () => {
 }
 
 export const doSignInWithEmailAndPassword = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      return signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.log(error);
+      alert("Password Or email does not match");
+    }
 };
 
 /*
@@ -39,6 +44,8 @@ export const doPasswordReset = (email) => {
 
 const saveUserToFirestore = async (user) => {
     const userRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+    if (!userDoc.exists()){
     await setDoc(userRef, {
         uid: user.uid,
         displayName: user.displayName,
@@ -51,6 +58,7 @@ const saveUserToFirestore = async (user) => {
         lastLogin: new Date()
     }, { merge: true });
   };
+}
 
 export const logout = async () => {
     try {

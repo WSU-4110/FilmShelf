@@ -63,6 +63,7 @@ const register = () => {
       // Redirect after successful registration
       navigate("/LoginForm");
     } catch (error) {
+      alert("This email already exists");
       console.error("Error registering user:", error);
     }
   };
