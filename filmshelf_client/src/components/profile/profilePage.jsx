@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavBar } from "../nav/nav";
 import { auth, db } from '../../config/firebase-config'; // Consolidated imports from firebase-config.
 import { doc, getDoc } from "firebase/firestore";
+
 import {
   MDBCol,
   MDBContainer,
