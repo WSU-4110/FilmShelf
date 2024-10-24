@@ -36,33 +36,26 @@ body {
 /* Swiper styling */
 .popular-carousel {
   margin-bottom: 20px;
-}
-/* arrow works */
-.swiper-container{
   position: relative;
 }
 
-.swiper-button-prev, .swiper-button-next{
-  display: none;
-}
-
-.custom-navigation {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  display: flex;
-  align-items: center;
-  z-index: 10;
-}
-
-/* Add "No.#" label */
+/* Position No.# on top of the white card */
 .swiper-slide-number {
   position: absolute;
-  bottom: 10px;
-  right: 180px;
-  color: black;
-  font-size: 16px;
-  z-index: 10;
+  bottom: 10px;  /* Adjust position to be above the card */
+  right: 80px;  /* Align the number slightly to the left */
+  color: #000000;
+  font-size: 18px;
+  z-index: 20;  /* Ensure it appears above the card */
+}
+
+/* Custom navigation for arrows placed next to the No.# */
+.custom-navigation {
+  position: absolute;
+  bottom: 230px; /* Align with the No.# */
+  right: 30px; /* Place on the right */
+  display: flex;
+  z-index: 20; /* Make sure arrows are above the card */
 }
 
 .custom-arrow {
@@ -80,6 +73,11 @@ body {
   background-color: #333;
 }
 
+/* Remove default Swiper buttons */
+.swiper-button-prev, .swiper-button-next {
+  display: none;
+}
+
 /* Adjust the text block to show more */
 .swiper-info {
   flex-grow: 1;
@@ -93,7 +91,9 @@ body {
   overflow: hidden;
 }
 
+/* Adjustments to swiper slide content for better display */
 .swiper-slide-content {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -101,6 +101,7 @@ body {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 4px 8px #00000033;  /* Add shadow for more depth */
 }
 
 .swiper-image {
@@ -109,6 +110,7 @@ body {
   border-radius: 10px;
   margin-right: 50px;
 }
+
 /*Text location and setup*/
 .swiper-info {
   flex-grow: 1;
@@ -116,22 +118,17 @@ body {
 }
 
 .swiper-info h3 {
-  color: black;
-  margin-top: 0;
   margin-bottom: 10px;
+  font-size: 24px;
 }
 
 .swiper-info p {
-  color: #555;
+  max-height: none;
 }
 
 /* Swiper pagination styling */
 .swiper-pagination-bullet {
   background-color: #fff;
-}
-
-.swiper-button-prev, .swiper-button-next {
-  color: white;
 }
 
 /* Upcoming Movies Section */
@@ -232,3 +229,36 @@ body {
   align-items: center;
 }
 
+.modal-poster {
+  margin-right: 20px;
+}
+
+.modal-info {
+  text-align: left;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.genre-badge {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.release-date {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}
