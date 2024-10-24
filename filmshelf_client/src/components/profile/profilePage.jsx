@@ -53,16 +53,18 @@ function ProfilePage() {
 
                                             <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                 <div>
-                                                    
+                                                    <box-icon name='camera-movie' alt='Movies Watched'></box-icon>
                                                     <p className="small text-muted mb-1">Movies Watched</p>
                                                     <p className="mb-0">41</p>
                                                 </div>
                                                 <div className="px-3">
 
+                                                    <box-icon name='comment-detail'></box-icon>
                                                     <p className="small text-muted mb-1">Reviews</p>
                                                     <p className="mb-0">976</p>
                                                 </div>
                                                 <div>
+                                                    <box-icon name='user'></box-icon>
                                                     <p className="small text-muted mb-1">Followers</p>
                                                     <p className="mb-0">8.5</p>
                                                 </div>
