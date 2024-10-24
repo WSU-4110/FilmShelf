@@ -36,7 +36,7 @@ export const NavBar = () => {
             {user ? (
               <NavDropdown title={user.displayName} id="basic-nav-dropdown" align="end">
                 <NavDropdown.Item as={Link} to="/profilePage">Profile</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/movies">Movies</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/watchedMovies">Watched Movies</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/lists">Lists</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/reviews">Reviews</NavDropdown.Item>
                 <NavDropdown.Divider />
