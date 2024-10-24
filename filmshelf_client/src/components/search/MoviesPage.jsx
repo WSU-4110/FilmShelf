@@ -1,66 +1,44 @@
 import React, { useEffect, useState } from "react";
+import MovieService from "./MovieService";
 import { NavBar } from "../nav/nav";
 import "./MoviesPage.css";
 
 const MoviesPage = () => {
   const [movieList, setMovieList] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]); // For displaying filtered movies
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState(null); // Track selected genre
-  const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedPage, setSelectedPage] = useState(1);
 
   const apiKey = import.meta.env.VITE_TMDB_API;
-
-  // Fetch movies
-  const getMovies = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${selectedPage}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        const filteredMovies = json.results.filter((movie) => !movie.adult); // Filter out adult movies
-        setMovieList(filteredMovies); // Set the filtered list of movies
-        setFilteredMovies(filteredMovies); // Set filtered movies initially to all movies
-      })
-      .catch((error) => console.error("Error fetching movies:", error));
-  };
-
-  console.log(movieList);
-
-  // Fetch genres
-  const getGenres = () => {
-    fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
-    )
-      .then((res) => res.json())
-      .then((json) => setGenres(json.genres))
-      .catch((error) => console.error("Error fetching genres:", error));
-  };
+  const movieService = new MovieService(apiKey);
 
   useEffect(() => {
-    getMovies();
-    getGenres();
-  }, [selectedPage]); //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
+    movieService.subscribe((event) => {
+      if (event.type === "movies") {
+        setMovieList(event.data);
+        setFilteredMovies(event.data);
+      }
+      if (event.type === "genres") {
+        setGenres(event.data);
+      }
+    });
 
-  // Handle when a movie is clicked
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(movie); // Set the clicked movie as selected
-  };
+    movieService.getMovies(selectedPage);
+    movieService.getGenres();
 
-  // Handle modal close
-  const closeModal = () => {
-    setSelectedMovie(null); // Deselect the movie to close the modal
-  };
+    return () => {
+      movieService.observers = [];
+    };
+  }, [selectedPage]);
 
   // Filter movies by genre
   const filterMoviesByGenre = (genreId) => {
     if (selectedGenre === genreId) {
-      // If the clicked genre is already selected, reset the filter
       setSelectedGenre(null);
       setFilteredMovies(movieList); // Reset to all movies
     } else {
-      // Otherwise, filter by the selected genre
       setSelectedGenre(genreId);
       const filtered = movieList.filter((movie) =>
         movie.genre_ids.includes(genreId)
@@ -69,28 +47,22 @@ const MoviesPage = () => {
     }
   };
 
-  const handleNextPage = () => {
-    setSelectedPage((prevPage) => prevPage + 1);
-    console.log(selectedPage);
-  };
-  const handleLastPage = () => {
-    setSelectedPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
-    console.log(selectedPage);
-  };
+  const handleNextPage = () => setSelectedPage((prevPage) => prevPage + 1);
+
+  const handleLastPage = () =>
+    setSelectedPage((prevPage) => Math.max(prevPage - 1, 1));
+
   const handleResetFilters = () => {
-    setSelectedGenre(null); // Reset selected genre
-    setSelectedPage(1); // Reset page to 1
-    setFilteredMovies(movieList); // Reset filtered movies to the full movie list
+    setSelectedGenre(null);
+    setSelectedPage(1);
+    setFilteredMovies(movieList);
   };
 
   return (
     <div>
       <NavBar />
       <h1>Movies</h1>
-
-      {/* Genre Filter */}
       <div className="genre-filter-wrapper">
-        {/* Buttons for specific genres */}
         <div className="genre-buttons-wrapper">
           {genres
             .filter((genre) =>
@@ -110,8 +82,6 @@ const MoviesPage = () => {
               </button>
             ))}
         </div>
-
-        {/* Dropdown for remaining genres */}
         <div className="genre-dropdown-wrapper">
           <select
             id="genre-select"
@@ -140,15 +110,12 @@ const MoviesPage = () => {
               ))}
           </select>
         </div>
-
-        {/* Reset Button */}
         <div className="reset-button-wrapper">
           <button className="reset-button" onClick={handleResetFilters}>
             Reset Filters
           </button>
         </div>
       </div>
-
       <div className="content">
         {filteredMovies.map(
           (movie) =>
@@ -158,29 +125,27 @@ const MoviesPage = () => {
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                   className="movie-poster"
-                  onClick={() => handleMovieClick(movie)} // Click to show modal
+                  onClick={() => setSelectedMovie(movie)}
                 />
               </div>
             )
         )}
       </div>
       <div className="movie-pages-buttons-wrapper">
-        <button onClick={handleLastPage}>{`<`}</button>
-        <button onClick={handleNextPage}> {`>`} </button>
+        <button onClick={handleLastPage}>{"<"}</button>
+        <button onClick={handleNextPage}>{">"}</button>
       </div>
-
-      {/* Conditionally render modal for movie details */}
       {selectedMovie && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeModal}>
+            <span className="close" onClick={() => setSelectedMovie(null)}>
               &times;
             </span>
             <div className="modal-body">
               <img
-                src={`https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`} // Poster in the modal
+                src={`https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`}
                 alt={selectedMovie.title}
-                className="modal-poster" // Class for styling the poster
+                className="modal-poster"
               />
               <div className="modal-text">
                 <h2>{selectedMovie.title}</h2>
@@ -190,7 +155,6 @@ const MoviesPage = () => {
                 <p>
                   <strong>Overview:</strong> {selectedMovie.overview}
                 </p>
-                {/* TODO: add more movie details here */}
               </div>
             </div>
           </div>
