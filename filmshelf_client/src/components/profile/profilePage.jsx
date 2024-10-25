@@ -26,7 +26,9 @@ function ProfilePage() {
   const [user, setUser] = useState(null); // Stores authenticated user.
   const [userInfo, setUserInfo] = useState(null); // Stores Firestore user data.
   const navigate = useNavigate();
-
+  const onProfileSettings = () => {
+    navigate("/profileSettings")
+};
   // Fetch user and Firestore data on authentication state change.
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
