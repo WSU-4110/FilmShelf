@@ -9,7 +9,7 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #565656;
+  background-color: #000000;
 }
 
 /* Home container */
@@ -21,8 +21,8 @@ body {
 
 /* Header styling */
 .home-header {
-  background-color: #565656;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   padding: 20px;
   text-align: left;
 }
@@ -33,55 +33,117 @@ body {
   padding: 20px;
 }
 
-/*Featured Item Section */
-.featured-items {
-  display: flex;
-  align-items: flex-start;
-  background-color: #C0C0C0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px #00000094;
+/* Swiper styling */
+.popular-carousel {
   margin-bottom: 20px;
-  padding: 20px;
+  position: relative;
 }
 
-
-.featured-images {
-  width: 50%;
-  height: auto;
-  margin-right: 20px;
+/* Position No.# on top of the white card */
+.swiper-slide-number {
+  position: absolute;
+  bottom: 10px;  
+  right: 80px;  
+  color: #000000;
+  font-size: 18px;
+  z-index: 20;  
 }
 
-.featuredinfo div{
+/* Custom navigation for arrows placed next to the No.# */
+.custom-navigation {
+  position: absolute;
+  bottom: 230px; 
+  right: 30px; 
   display: flex;
-  flex-direction: column; 
-  justify-content: flex-start;
+  z-index: 20; 
+}
+
+.custom-arrow {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-left: 5px; /* Space between the arrows */
+}
+
+.custom-arrow:hover {
+  background-color: #333;
+}
+
+/* Default Buttons gone*/
+.swiper-button-prev, .swiper-button-next {
+  display: none;
+}
+
+/* Adjust the text block to show more */
+.swiper-info {
   flex-grow: 1;
-}
-
-.featuredinfo h2{
-  margin-bottom: 15px;
-  color: #000000;
-}
-
-.featuredinfo .description {
-  color: #000000;
   text-align: left;
-  font-size: 16px;
+  padding: 10px;
 }
-/*Middle just to show the cut off */
 
-.home-middle{
-  background-color: #565656;
-  color: #000000;
+.swiper-info p {
+  color: #555;
+  max-height: 150px; 
+  overflow: hidden;
+}
+
+/* Adjustments to swiper slide content for better display */
+.swiper-slide-content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px #00000033;  
+}
+
+.swiper-image {
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 50px;
+}
+
+/*Text location and setup*/
+.swiper-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.swiper-info h3 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.swiper-info p {
+  max-height: none;
+}
+
+/* Swiper pagination styling */
+.swiper-pagination-bullet {
+  background-color: #fff;
+}
+
+/* Upcoming Movies Section */
+.home-middle {
+  background-color: #000000;
+  color: #ffffff;
   padding: 20px;
   text-align: left;
 }
-/* Grid layout for updated items */
+
+/* Grid layout for upcoming items */
 .item-grid {
-  display:grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 30px; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
   justify-items: center;
   padding: 20px;
 }
@@ -97,47 +159,106 @@ body {
   max-width: 600px;
 }
 
-.item-card-content{
+/* Upcoming Film Styles */
+.upcoming-film {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
+  margin-bottom: 20px;
 }
 
-.item-card img {
-  width: 150px;
+.upcoming-film-image {
+  width: 100px;
   height: auto;
   margin-right: 20px;
-  border-bottom: none;
 }
 
-.item-details{
-  flex-grow: 1;
-  text-align: left;
-}
-.item-details h3{
-  margin: 0 0 10px;
-  font-size: 18px;
+.upcoming-film-title {
   font-weight: bold;
-}
-.item-details p{
-  font-size: 14px;
-  color: #565656;
+  margin: 0;
 }
 
-/* Hover effect on items */
+.upcoming-film-description {
+  margin: 5px 0 0;
+  color: #565656;
+  flex-grow: 1;
+  word-wrap: break-word;
+}
+
 .item-card:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   box-shadow: 0 8px 16px #000000bd;
 }
 
 /* Footer styling */
 .home-footer {
   background-color: #c0c0c000;
-  color: #000000;
+  color: #ffffff;
   text-align: center;
   padding: 10px;
   position: relative;
   bottom: 0;
   width: 100%;
+}
+
+/* Modal container */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 50%;
+  display: flex;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8),
+              0 0 30px 10px rgba(11, 77, 77, 0.5);
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+}
+
+.modal-poster {
+  margin-right: 20px;
+}
+
+.modal-info {
+  text-align: left;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.genre-badge {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.release-date {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
 }

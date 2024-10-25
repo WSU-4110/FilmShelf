@@ -1,59 +1,161 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './home.css';
 import { NavBar } from '../nav/nav';
-import { auth } from "../../config/firebase-config";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/swiper-bundle.css';
+
 const Home = () => {
-  //The Featured film (soon to be top films) ETA: \o/
-  const featuredItems = {
-    id: 0,
-    title: "Film 0",
-    cover: "https://via.placeholder.com/600x400", //Larger placeholder at the top for the big movies can be changed
-    description: "This movie is super cool and awesome it was done in a brand new way blah blah blah. This will have the plot, genre, details, and notable cast",
+  const [popularFilms, setPopularFilms] = useState([]);
+  const [upcomingFilms, setUpcomingFilms] = useState([]);
+  const [selectedFilm, setSelectedFilm] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [genresList, setGenresList] = useState({}); // Store all genres
+
+  const swiperRef = useRef(null);
+
+  // Fetch genres for popular movies
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_TMDB_API;
+    const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
+
+    fetch(genresUrl)
+      .then(res => res.json())
+      .then(data => {
+        if (data.genres) {
+          const genresMap = {};
+          data.genres.forEach(genre => {
+            genresMap[genre.id] = genre.name;
+          });
+          setGenresList(genresMap);
+        }
+      })
+      .catch(err => console.error('Error fetching genres:', err));
+  }, []);
+
+  // Fetch popular films
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_TMDB_API;
+    const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&region=US&page=1`;
+
+    fetch(popularUrl)
+      .then(res => res.json())
+      .then(data => {
+        if (data.results) {
+          setPopularFilms(data.results.slice(0, 10));
+        }
+      })
+      .catch(err => console.error('Error fetching popular films:', err));
+  }, []);
+
+  // Fetch upcoming films
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_TMDB_API;
+    const upcomingUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&region=US&page=1`;
+
+    fetch(upcomingUrl)
+      .then(res => res.json())
+      .then(data => {
+        setUpcomingFilms(data.results.slice(0, 6));
+      })
+      .catch(err => console.error('Error fetching upcoming films:', err));
+  }, []);
+
+  const openModal = (film) => {
+    setSelectedFilm(film);
+    setIsModalOpen(true);
   };
 
+  const closeModal = () => {
+    setSelectedFilm(null);
+    setIsModalOpen(false);
+  };
 
+  const handleNext = () => {
+    swiperRef.current.swiper.slideNext();
+  };
 
-  //The "newer" items that are added to the films and other things
-  const items = [
-    { id: 1, title: "Film 1", cover: "https://via.placeholder.com/150" },
-    { id: 2, title: "Film 2", cover: "https://via.placeholder.com/150" },
-    { id: 3, title: "Film 3", cover: "https://via.placeholder.com/150" },
-    { id: 4, title: "Film 4", cover: "https://via.placeholder.com/150" },
-    { id: 5, title: "Film 5", cover: "https://via.placeholder.com/150" },
-    { id: 6, title: "Film 6", cover: "https://via.placeholder.com/150" },
-  ];
+  const handlePrev = () => {
+    swiperRef.current.swiper.slidePrev();
+  };
 
   return (
     <div className="home-container">
-      {/* Main Page setup */}
       <NavBar />
-
       <header className="home-header">
-        <h1>Popular New Films</h1>
+        <h1>Most Popular Movies</h1>
       </header>
 
       <main className="home-main">
-      {/*Featured FIlm Section */}
-      <div className="featuredinfo">
-        <div className="featured-items">
-          <img src={featuredItems.cover} alt={featuredItems.title} className="featured-images" />
-        <div className="description"> </div>
-          <h2>{featuredItems.title}</h2>
-          <p className="description">{featuredItems.description}</p>
-          </div>
+        {/* Swiper carousel for popular films */}
+        <Swiper
+          ref={swiperRef}
+          className="popular-carousel"
+          modules={[Pagination]}
+          spaceBetween={10}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          loop={true}
+          onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex + 1)}
+        >
+          {popularFilms.map((film, index) => (
+            <SwiperSlide key={index}>
+              <div className="carousel-item swiper-slide-content">
+                <img
+                  className="swiper-image"
+                  src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${film.poster_path}`}
+                  alt={film.title}
+                />
+                <div className="swiper-info">
+                  <h3>{film.title}</h3>
+                  {/* Display full movie description */}
+                  <p>{film.overview}</p>
+                  {/* Display genres */}
+                  <div className="genres">
+                    {film.genre_ids.map((genreId) => (
+                      <span key={genreId} className="genre-badge">
+                        {genresList[genreId]}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {/* Slide Number */}
+                <div className="swiper-slide-number">No. {currentSlide}</div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Custom navigation arrows */}
+        <div className="custom-navigation">
+          <button className="custom-arrow" onClick={handlePrev}>&lt;</button>
+          <button className="custom-arrow" onClick={handleNext}>&gt;</button>
         </div>
 
-      <middle className="home-middle">
-        <h1>Latest Film Releases</h1>
-      </middle>
+        <section className="home-middle">
+          <h1>Upcoming Movies</h1>
+        </section>
 
+        {/* Grid of upcoming movies */}
         <div className="item-grid">
-          {items.map((item) => (
-            <div key={item.id} className="item-card">
-              <div className="item-card-content"></div>
-                <img src={item.cover} alt={item.title} />
-                <h3>{item.title}</h3>
-              <p>This is a brief description of {item.title}. This movie is super cool</p>
+          {upcomingFilms.map((film, index) => (
+            <div key={index} className="item-card" onClick={() => openModal(film)}>
+              <div className="upcoming-film">
+                <img
+                  className="upcoming-film-image"
+                  src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${film.poster_path}`}
+                  alt={film.title}
+                />
+                <div>
+                  <h4 className="upcoming-film-title">{film.title}</h4>
+                  {/* Display release date */}
+                  <p className="release-date">Release Date: {new Date(film.release_date).toDateString()}</p>
+                  <p className="upcoming-film-description">
+                    {film.overview.substring(0, 100)}...
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -61,8 +163,30 @@ const Home = () => {
 
       {/* Footer */}
       <footer className="home-footer">
-        <p>&copy; 2024 FilmShelf</p>
+        <p>Film Shelf &copy; 2023</p>
       </footer>
+
+      {/* Modal for displaying selected film */}
+      {isModalOpen && selectedFilm && (
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-body">
+              <img
+                className="modal-poster"
+                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${selectedFilm.poster_path}`}
+                alt={selectedFilm.title}
+              />
+              <div className="modal-info">
+                <h2>{selectedFilm.title}</h2>
+                <p>{selectedFilm.overview}</p>
+                <button className="close" onClick={closeModal}>
+                  &times;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

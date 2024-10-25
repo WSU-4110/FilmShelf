@@ -29,6 +29,7 @@ export const NavBar = () => {
         </Link>
       </Navbar.Brand>
       <Nav.Item><SearchBar/></Nav.Item>
+      <Nav.Item as={Link} to="/movies">Movies</Nav.Item>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
@@ -36,7 +37,7 @@ export const NavBar = () => {
             {user ? (
               <NavDropdown title={user.displayName} id="basic-nav-dropdown" align="end">
                 <NavDropdown.Item as={Link} to="/profilePage">Profile</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/movies">Movies</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/watchedMovies">Watched Movies</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/lists">Lists</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/reviews">Reviews</NavDropdown.Item>
                 <NavDropdown.Divider />
