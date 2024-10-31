@@ -15,7 +15,6 @@ import {
 } from 'mdb-react-ui-kit';
 import "./profilePage.css";
 import profilePic from '../../assets/profileImage.jpg';
-import 'boxicons'
 import Boxicons from 'boxicons';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +24,9 @@ function ProfilePage() {
   const [user, setUser] = useState(null); // Stores authenticated user.
   const [userInfo, setUserInfo] = useState(null); // Stores Firestore user data.
   const navigate = useNavigate();
+  const onProfileSettings = () => {
+    navigate("/profileSettings")
+};
 
   // Fetch user and Firestore data on authentication state change.
   useEffect(() => {
@@ -49,6 +51,8 @@ function ProfilePage() {
 
     return () => unsubscribe(); // Cleanup on unmount.
   }, []);
+
+  
 
     return (
         <>    
