@@ -1,0 +1,70 @@
+/* Container for the entire page */
+.movie-details-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #565656; /* Match the background color with the home page */
+    min-height: 100vh;
+  }
+  
+  /* Full-width NavBar container */
+  .navbar {
+    width: 100%;
+    background-color: #000000; /* Dark background to match the NavBar style */
+  }
+  
+  /* Main content container for movie details, aligned to the left */
+  .movie-details-content {
+    width: 60%; /* Keep the width at 60% for the movie details */
+    margin: 20px 0 20px 20px; /* Align the content to the left with margin */
+  }
+  
+  /* Box for the movie info (poster and description) */
+  .movie-box {
+    display: flex;
+    align-items: flex-start;
+    background-color: #C0C0C0; /* Light gray background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px #00000094; /* Similar shadow effect */
+    padding: 20px;
+  }
+  
+  /* Movie Poster */
+  .movie-poster-1 {
+    width: 40%; /* Adjust the poster width */
+    height: auto;
+    margin-right: 20px;
+    border-radius: 4px;
+  }
+  
+  /* Movie Information */
+  .movie-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  
+  /* Movie Title Styling */
+  .movie-title {
+    font-size: 30px;
+    color: #000000;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Movie Subtitle Styling (Release year and Director) */
+  .movie-subtitle {
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  /* Movie Description Styling */
+  .movie-description {
+    color: #000000;
+    text-align: left;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  

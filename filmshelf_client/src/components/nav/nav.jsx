@@ -29,6 +29,7 @@ export const NavBar = () => {
         </Link>
       </Navbar.Brand>
       <Nav.Item><SearchBar/></Nav.Item>
+      <Nav.Item as={Link} to="/movies">Movies</Nav.Item>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">

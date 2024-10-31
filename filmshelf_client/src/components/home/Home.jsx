@@ -163,7 +163,7 @@ const Home = () => {
 
       {/* Footer */}
       <footer className="home-footer">
-        <p>Movie Listings &copy; 2023</p>
+        <p>Film Shelf &copy; 2023</p>
       </footer>
 
       {/* Modal for displaying selected film */}

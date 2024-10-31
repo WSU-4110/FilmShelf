@@ -157,7 +157,7 @@ export default function WatchedMovies() {
                   className="movie-poster"
                   onClick={() => handleMovieClick(movie)}
                 />
-                <h1 style={{ textAlign: "center" }}ß>Rating: {movie.rating}</h1>
+                <h1 style={{color: "white"}}ß>Rating: {movie.rating}</h1>
               </div>
             )
         )}
