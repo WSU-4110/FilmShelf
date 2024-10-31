@@ -26,9 +26,7 @@ function ProfilePage() {
   const [user, setUser] = useState(null); // Stores authenticated user.
   const [userInfo, setUserInfo] = useState(null); // Stores Firestore user data.
   const navigate = useNavigate();
-  const onProfileSettings = () => {
-    navigate("/profileSettings")
-};
+
   // Fetch user and Firestore data on authentication state change.
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -52,7 +50,9 @@ function ProfilePage() {
 
     return () => unsubscribe(); // Cleanup on unmount.
   }, []);
-
+  const onProfileSettings = () => {
+    navigate("/profileSettings")
+};
     return (
         <>    
             <NavBar />
@@ -75,25 +75,10 @@ function ProfilePage() {
                                             <div className="flex-grow-1 ms-3">
                                                 <MDBCardTitle>{user.displayName}</MDBCardTitle>
                                                 <MDBCardText>{user.email}</MDBCardText> 
-
-                                                
-                                                
-                                                
-                                                
-                                                
                                                 <div className='buttons'>
                                                         <button className='button' onClick={onProfileSettings}>Profile Settings</button>
                                                 </div>
-
-                                                
-                                                
                                                 <br />
-                                                
-                                                
-                                                   
-
-                                                    
-
                                             <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                 <div>
                                                     <button className='buttonMW'>
@@ -104,11 +89,10 @@ function ProfilePage() {
                                   ? Object.keys(userInfo.watchedMovies).length
                                   : 0}
                               </p>
-                                                    </button>
+                                  </button>
                                                     
                                                 </div>
                                                 <div className="px-3">
-
                                                     <button className='buttonR'>
                                                         <box-icon name='comment-detail'></box-icon>
                                                         <p className="small text-muted mb-1">Reviews</p>
@@ -118,10 +102,8 @@ function ProfilePage() {
                                   : 0}
                               </p>
                                                     </button>
-                                                    
                                                 </div>
                                                 <div>
-
                                                     <button className='buttonF'>
                                                     <box-icon name='user'></box-icon>
                                                     <p className="small text-muted mb-1">Followers</p>
@@ -130,9 +112,7 @@ function ProfilePage() {
                                             ? userInfo.followers.length
                                             : 0}
                                         </p>
-                                                    </button>
-                                                    
-                                                    
+                                                    </button>  
                                                 </div>
                                             </div>
                                         </div>
@@ -159,8 +139,6 @@ function ProfilePage() {
                     </MDBRow>
                 </MDBContainer>
             )}
-
-        
         </>
     );
 }
