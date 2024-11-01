@@ -4,6 +4,7 @@ import { NavBar } from '../nav/nav';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
+import FilmApiProxy from './FilmApiProxy';
 
 const Home = () => {
   const [popularFilms, setPopularFilms] = useState([]);
@@ -36,29 +37,15 @@ const Home = () => {
 
   // Fetch popular films
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_TMDB_API;
-    const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&region=US&page=1`;
-
-    fetch(popularUrl)
-      .then(res => res.json())
-      .then(data => {
-        if (data.results) {
-          setPopularFilms(data.results.slice(0, 10));
-        }
-      })
+    FilmApiProxy.getPopularFilms()  // Updated: Use Proxy for popular films
+      .then(setPopularFilms)
       .catch(err => console.error('Error fetching popular films:', err));
   }, []);
 
   // Fetch upcoming films
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_TMDB_API;
-    const upcomingUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&region=US&page=1`;
-
-    fetch(upcomingUrl)
-      .then(res => res.json())
-      .then(data => {
-        setUpcomingFilms(data.results.slice(0, 6));
-      })
+    FilmApiProxy.getUpcomingFilms()  // Updated: Use Proxy for upcoming films
+      .then(setUpcomingFilms)
       .catch(err => console.error('Error fetching upcoming films:', err));
   }, []);
 
