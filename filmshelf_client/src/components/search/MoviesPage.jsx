@@ -148,9 +148,11 @@ const MoviesPage = () => {
     console.log(selectedPage);
   };
   const handleResetFilters = () => {
-    setSelectedGenre(null); // Reset selected genre
-    setSelectedPage(1); // Reset page to 1
-    setFilteredMovies(movieList); // Reset filtered movies to the full movie list
+    setSelectedGenre(null);
+    setSelectedPage(1);
+    setFilteredMovies(movieList);
+    setSelectedValue("None");
+    document.getElementById("genre-select").value = "";
   };
 
   return (
