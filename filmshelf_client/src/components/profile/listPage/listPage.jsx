@@ -152,8 +152,8 @@ export default function UserLists() {
                 </div>
 
                 {isModalOpen && (
-    <div className="modal">
-        <div className="modal-content">
+    <div className="list-modal">
+        <div className="list-modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
             <h2>{isEditing ? "Edit List" : "Create New List"}</h2>
             <input
@@ -187,7 +187,7 @@ export default function UserLists() {
                 ))}
             </div>
 
-            <div className="modal-buttons">
+            <div className="list-modal-buttons">
                 <button className="save-button" onClick={saveList}>Save List</button>
                 {isEditing && (
                     <button className="delete-button" onClick={deleteList}>Delete List</button>
@@ -200,15 +200,15 @@ export default function UserLists() {
 
                 {/* Movie Pop-Up */}
                 {selectedMovie && (
-                    <div className="modal" onClick={closeMoviePopUp}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                            <div className="modal-body">
+                    <div className="list-modal" onClick={closeMoviePopUp}>
+                        <div className="list-modal-content" onClick={(e) => e.stopPropagation()}>
+                            <div className="list-modal-body">
                                 <img
-                                    className="modal-poster"
+                                    className="list-modal-poster"
                                     src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${selectedMovie.poster_path}`}
                                     alt={selectedMovie.title}
                                 />
-                                <div className="modal-info">
+                                <div className="list-modal-info">
                                     <h2>{selectedMovie.title}</h2>
                                     <p>{selectedMovie.overview}</p>
                                     <button className="close" onClick={closeMoviePopUp}>&times;</button>
