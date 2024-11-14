@@ -12,8 +12,8 @@ function MovieDetailsPage() {
   const [director, setDirector] = useState("");
   const [selectedValue, setSelectedValue] = useState("None");
   const [activeTab, setActiveTab] = useState("details");
-  const [movies, setMovies] = useState([]);
-  const [showtimes, setShowtimes] = useState(null); // New state for SerpApi data
+  const [visibleTheaters, setVisibleTheaters] = useState(4);
+  const [showtimes, setShowtimes] = useState([]); // New state for SerpApi data
 
   const API_KEY = import.meta.env.VITE_TMDB_API;
 
@@ -151,6 +151,10 @@ function MovieDetailsPage() {
     fetchShowtimes();
   }, [movie]);
 
+  const loadMoreTheaters = () => {
+    setVisibleTheaters((prevVisible) => prevVisible + 4); // Show 4 more theaters
+  };
+
   if (!movie) {
     return <div>Loading...</div>;
   }
@@ -206,32 +210,55 @@ function MovieDetailsPage() {
                   <option value={5}>5</option>
                 </select>
               </div>
-              {showtimes && (
-                <div>
-                  <h2>Showtimes</h2>
-                  {showtimes?.map((theater, index) => (
-                    <div key={index}>
-                      <h3>
-                        <a
-                          href={theater.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {theater.theaterName}
-                        </a>
-                      </h3>
-                      <ul>
-                        {theater.showtimes.map((show, idx) => (
-                          <li key={idx}>
-                            <strong>{show.type}</strong>:{" "}
-                            {show.times.join(", ")}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              )}
+
+              <div className="showtimes-container">
+                {showtimes && showtimes.length > 0 ? (
+                  <div className="theaters">
+                    {showtimes
+                      .slice(0, visibleTheaters)
+                      .map((theater, index) => (
+                        <div className="theater-card" key={index}>
+                          <h3>
+                            <a
+                              href={theater.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {theater.theaterName}
+                            </a>
+                          </h3>
+                          <p>{theater.address}</p>
+                          {theater.showtimes.length > 0 ? (
+                            <div className="showtimes">
+                              {theater.showtimes.map((show, idx) => (
+                                <div key={idx} className="showtime">
+                                  <h4>{show.type}</h4>
+                                  <div className="times">
+                                    {show.times.map((time, i) => (
+                                      <span key={i} className="time">
+                                        {time}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p>No showtimes available</p>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  <p>No showtimes found for this movie.</p>
+                )}
+
+                {visibleTheaters < showtimes.length && (
+                  <button className="load-more" onClick={loadMoreTheaters}>
+                    Load More
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
