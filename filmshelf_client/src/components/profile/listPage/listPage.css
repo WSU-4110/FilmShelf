@@ -1,0 +1,250 @@
+/* Page container for consistent left alignment
+.content {
+    padding: 20px;
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Add List button at the top */
+.add-list-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    align-self: flex-start;
+    margin-bottom: 20px;
+}
+
+.add-list-button:hover {
+    transform: scale(1.05);
+}
+
+/* Lists container */
+.lists-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Individual list section */
+.list-section {
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Header styling for each list section */
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.list-header h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.list-description {
+    font-size: 1em;
+    color: #bbb;
+    margin: 8px 0;
+}
+
+/* Edit button styling */
+.edit-button {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+    background-color: #888;
+}
+
+/* Movie row styling */
+.movie-row {
+    display: flex;
+    overflow-x: auto;
+    padding-top: 10px;
+    gap: 15px;
+}
+
+/* Individual movie item styling */
+.movie-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    text-align: center;
+    color: #ccc;
+    transition: transform 0.2s;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+}
+
+/* Thumbnail for movie posters */
+.movie-thumbnail-small {
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    margin-bottom: 5px;
+}
+
+/* Modal styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: #333;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    color: #fff;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #fff;
+    background: none;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+/* Textbox and textarea in modal */
+input[type="text"], textarea, .search-input-group .form-control {
+    background-color: #f7f3f3;
+    color: #0d0c0c;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 15px;
+    resize: none;
+}
+
+textarea {
+    min-height: 100px;
+    overflow-y: auto;
+}
+
+/* Modal buttons container */
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Save button styling */
+.save-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+/* Delete button styling */
+.delete-button {
+    padding: 10px 20px;
+    background-color: #ff4c4c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #d43f3f;
+}
+
+/* Rank toggle */
+.rank-toggle {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #ddd;
+}
+
+/* Rank buttons */
+.rank-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    justify-content: center;
+}
+
+.rank-buttons button {
+    padding: 4px 8px;
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.rank-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.movie-rank {
+    font-size: 0.9em;
+    color: #bbb;
+    margin-top: 5px;
+    text-align: center;
+}  
