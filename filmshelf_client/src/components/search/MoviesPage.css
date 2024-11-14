@@ -58,6 +58,14 @@
     box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8), 
                 0 0 30px 10px rgba(11, 77, 77, 0.5);  /* Glowing effect */
 }
+.movie-link-button{
+    border-radius: 8px;
+    margin-left: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.35rem;
+    color: #007BFF;
+}
 
 .modal-body {
     display: flex; /* Align image and text side by side */

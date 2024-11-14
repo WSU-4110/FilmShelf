@@ -6,65 +6,180 @@
     min-height: 100vh;
   }
   
-  /* Full-width NavBar container */
-  .navbar {
-    width: 100%;
-    background-color: #000000; /* Dark background to match the NavBar style */
-  }
-  
-  /* Main content container for movie details, aligned to the left */
-  .movie-details-content {
-    width: 60%; /* Keep the width at 60% for the movie details */
-    margin: 20px 0 20px 20px; /* Align the content to the left with margin */
-  }
-  
-  /* Box for the movie info (poster and description) */
-  .movie-box {
-    display: flex;
-    align-items: flex-start;
-    background-color: #C0C0C0; /* Light gray background */
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px #00000094; /* Similar shadow effect */
-    padding: 20px;
-  }
-  
-  /* Movie Poster */
-  .movie-poster-1 {
-    width: 40%; /* Adjust the poster width */
-    height: auto;
-    margin-right: 20px;
-    border-radius: 4px;
-  }
-  
-  /* Movie Information */
-  .movie-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
-  }
-  
-  /* Movie Title Styling */
-  .movie-title {
-    font-size: 30px;
-    color: #000000;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  /* Movie Subtitle Styling (Release year and Director) */
-  .movie-subtitle {
-    font-size: 16px;
-    color: #000000;
-    margin-bottom: 15px;
-  }
-  
-  /* Movie Description Styling */
-  .movie-description {
-    color: #000000;
-    text-align: left;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-  
+
+.navbar {
+  width: 100%;
+  background-color: #000000; 
+}
+
+
+/* Box for the movie info (poster and description) */
+.movie-box {
+  display: flex;
+  align-items: flex-start;
+  background-color: #C0C0C0; 
+  overflow: hidden;
+  box-shadow: 0 4px 8px #00000094; 
+  padding: 20px;
+}
+
+/* Movie Poster */
+.movie-poster-1 {
+  width: 40%; 
+  height: auto;
+  margin-right: 20px;
+  border-radius: 4px;
+}
+
+/* Movie Information */
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* Movie Title Styling */
+.movie-title {
+  font-size: 30px;
+  color: #000000;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Movie Subtitle Styling (Release year and Director) */
+.movie-subtitle {
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+/* Movie Description Styling */
+.movie-description {
+  color: #000000;
+  text-align: left;
+  font-size: 20px;
+  line-height: 1.6;
+}
+.tab-container {
+  display: flex;
+  width: 100%; /* Ensure the tabs take up the full width */
+}
+
+
+.tab-container button {
+  flex: 1; 
+  padding: 15px; 
+  cursor: pointer;
+  background-color: #ccc;
+  font-weight: bold;
+  border: none;
+}
+
+
+.tab-container .active-tab {
+  background-color: #007bff; 
+  color: white;
+}
+
+.showtimes-container {
+  margin: 20px;
+}
+
+.theaters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.theater-card {
+  background-color: #f4f4f4;
+  padding: 10px;
+  width: 250px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  flex: 1 1 250px;
+  transition: transform 0.3s ease;
+}
+
+.theater-card:hover {
+  transform: translateY(-5px);
+}
+
+.theater-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.theater-card p {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+}
+
+.showtimes {
+  margin-top: 10px;
+}
+
+.showtime {
+  margin-bottom: 8px;
+}
+
+.showtime h4 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.time {
+  background-color: #007bff;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.time:hover {
+  background-color: #0056b3;
+}
+
+a {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.showtimes-container p {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.load-more {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: #0056b3;
+}
