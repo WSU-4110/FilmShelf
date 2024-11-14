@@ -16,6 +16,7 @@ function MovieDetailsPage() {
   const [showtimes, setShowtimes] = useState([]); // New state for SerpApi data
 
   const API_KEY = import.meta.env.VITE_TMDB_API;
+  const SERPAPI_KEY = import.meta.env.VITE_SERPAPI_API;
 
   const handleSelectChange = async (e) => {
     const value = e.target.value === "None" ? null : parseInt(e.target.value);
@@ -116,8 +117,7 @@ function MovieDetailsPage() {
 
     const fetchShowtimes = async () => {
       const params = new URLSearchParams({
-        api_key:
-          "357809ef5a930f4ac8206b5d33f17513539f29567b440da987dcc6384ce9699a",
+        api_key: `${SERPAPI_KEY}`,
         engine: "google",
         q: `${movie.title} theater showtimes`,
         google_domain: "google.com",
@@ -142,9 +142,10 @@ function MovieDetailsPage() {
           }))
         );
 
-        setShowtimes(showtimesData);
+        setShowtimes(showtimesData || []); // Set showtimes to empty array if null or undefined
       } catch (error) {
         console.error("Error fetching showtimes:", error);
+        setShowtimes([]); // Ensure showtimes is set to an empty array on error
       }
     };
 
