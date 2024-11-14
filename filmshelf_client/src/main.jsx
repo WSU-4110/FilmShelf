@@ -15,7 +15,8 @@ import MovieDetailsPage from "./components/search/MovieDetailsPage";
 import UserLists from "./components/profile/listPage/listPage.jsx";
 import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { CreateReview } from "./components/reviews/reviewCreation";
+import ReviewPage from "./components/reviews/reviewPage";
 // Update your router configuration
 const router = createBrowserRouter([
   {
@@ -59,9 +60,18 @@ const router = createBrowserRouter([
     element: <WatchedMovies/>
   },
   {
+    path:"/:id/submit",
+    element: <CreateReview/>
+  },
+  {
+    path:"/reviews/:id",
+    element: <ReviewPage/>
+  },
+  {
     path: "/lists",
     element: <UserLists />,
   }
+
   
 ]);
 
