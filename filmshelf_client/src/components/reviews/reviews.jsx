@@ -28,8 +28,8 @@ export const Review = () => {
         return () => unsubscribe();
     }, [id]);
 
-    const handleReviewClick = (did) => {
-        navigate(`/review/${did}`);
+    const handleReviewClick = (r_id) => {
+        navigate(`/reviews/${r_id}`);
     };
 
     const handleCreateReview = () => {
