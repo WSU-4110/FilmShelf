@@ -19,6 +19,7 @@ import profilePic from '../../assets/profileImage.jpg';
 import Boxicons from 'boxicons';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import ProfileSettings from './profileSettings';
 
 
 function ProfilePage() {
@@ -28,6 +29,8 @@ function ProfilePage() {
   const onProfileSettings = () => {
     navigate("/profileSettings")
 };
+
+
 
   // Fetch user and Firestore data on authentication state change.
   useEffect(() => {
@@ -53,7 +56,7 @@ function ProfilePage() {
     return () => unsubscribe(); // Cleanup on unmount.
   }, []);
 
-  
+ 
 
     return (
         <>    
@@ -69,7 +72,7 @@ function ProfilePage() {
                     <MDBRow className="justify-content-center">
                         <MDBCol md="9" lg="7" xl="5" className="mt-5">
                             <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
-                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0'}} src={profilePic}/>   
+                                    <MDBCardImage className='cardImage' style={{borderRadius: '15px 15px 0 0'}} src={profileImage} alt='Profile'/>   
                                     <MDBCardBody className="p-4">
                                         <div className="d-flex text-black">
                                             <div className= "flex-shrink-0">   
@@ -79,34 +82,26 @@ function ProfilePage() {
                                                 <MDBCardText>{user.email}</MDBCardText> 
 
                                                 
-                                                
-                                                
-                                                
-                                                
                                                 <div className='buttons'>
                                                         <button className='button' onClick={onProfileSettings}>Profile Settings</button>
                                                 </div>
-
                                                 
                                                 
                                                 <br />
                                                 
-                                                
-                                                   
-
-                                                    
-
                                             <div className="d-flex justify-content-start rounded-3 p-2 mb-2" style={{ backgroundColor: '#efefef' }}>
                                                 <div>
                                                     <button className='buttonMW'>
                                                         <box-icon name='camera-movie' alt='Movies Watched'></box-icon>
                                                         <p className="small text-muted mb-1">Movies Watched</p>
                                                         <p className="mb-0">
-                                {userInfo?.watchedMovies
-                                  ? Object.keys(userInfo.watchedMovies).length
-                                  : 0}
-                              </p>
+                                                            {userInfo?.watchedMovies
+                                                            ? Object.keys(userInfo.watchedMovies).length
+                                                            : 0}
+                                                        </p>
                                                     </button>
+
+                                                    
                                                     
                                                 </div>
                                                 <div className="px-3">
@@ -115,10 +110,10 @@ function ProfilePage() {
                                                         <box-icon name='comment-detail'></box-icon>
                                                         <p className="small text-muted mb-1">Reviews</p>
                                                         <p className="mb-0">
-                                {userInfo?.reviews
-                                  ? userInfo.reviews.size
-                                  : 0}
-                              </p>
+                                                            {userInfo?.reviews
+                                                            ? userInfo.reviews.size
+                                                            : 0}
+                                                        </p>
                                                     </button>
                                                     
                                                 </div>
@@ -128,10 +123,10 @@ function ProfilePage() {
                                                     <box-icon name='user'></box-icon>
                                                     <p className="small text-muted mb-1">Followers</p>
                                                     <p className="mb-0">
-                                          {userInfo?.followers
-                                            ? userInfo.followers.length
-                                            : 0}
-                                        </p>
+                                                        {userInfo?.followers
+                                                        ? userInfo.followers.length
+                                                        : 0}
+                                                        </p>
                                                     </button>
                                                     
                                                     
