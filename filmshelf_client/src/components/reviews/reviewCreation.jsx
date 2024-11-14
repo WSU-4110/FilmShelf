@@ -69,7 +69,7 @@ export const CreateReview = () => {
     return (
         <div>
             <NavBar />
-            <h1>Create New Review for {movieTitle}</h1>
+            <h1 style={{color:"white"}}>Create New Review for {movieTitle}</h1>
 
             <form onSubmit={handleCreateReview}>
                 <input
