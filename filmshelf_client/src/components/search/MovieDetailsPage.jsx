@@ -13,7 +13,11 @@ function MovieDetailsPage() {
   const [director, setDirector] = useState("");
   const [selectedValue, setSelectedValue] = useState("None");
   const [activeTab, setActiveTab] = useState("details");
+  const [visibleTheaters, setVisibleTheaters] = useState(4);
+  const [showtimes, setShowtimes] = useState([]); // New state for SerpApi data
+
   const API_KEY = import.meta.env.VITE_TMDB_API;
+  const SERPAPI_KEY = import.meta.env.VITE_SERPAPI_API;
 
   const handleSelectChange = async (e) => {
     const value = e.target.value === "None" ? null : parseInt(e.target.value);
@@ -106,6 +110,53 @@ function MovieDetailsPage() {
     fetchMovieDetails();
   }, [id, API_KEY]);
 
+  // Fetch showtimes using SerpApi
+  useEffect(() => {
+    if (!movie) {
+      return;
+    }
+
+    const fetchShowtimes = async () => {
+      const params = new URLSearchParams({
+        api_key: `${SERPAPI_KEY}`,
+        engine: "google",
+        q: `${movie.title} theater showtimes`,
+        google_domain: "google.com",
+        gl: "us",
+        hl: "en",
+        location: "Detroit, Michigan, United States",
+      }).toString();
+
+      try {
+        const response = await fetch(`/api/showtimes?${params}`);
+        const data = await response.json();
+
+        // Extract only showtimes information
+        const showtimesData = data.showtimes?.flatMap((showtime) =>
+          showtime.theaters.map((theater) => ({
+            theaterName: theater.name,
+            link: theater.link,
+            showtimes: theater.showing.map((show) => ({
+              type: show.type,
+              times: show.time,
+            })),
+          }))
+        );
+
+        setShowtimes(showtimesData || []); // Set showtimes to empty array if null or undefined
+      } catch (error) {
+        console.error("Error fetching showtimes:", error);
+        setShowtimes([]); // Ensure showtimes is set to an empty array on error
+      }
+    };
+
+    fetchShowtimes();
+  }, [movie]);
+
+  const loadMoreTheaters = () => {
+    setVisibleTheaters((prevVisible) => prevVisible + 4); // Show 4 more theaters
+  };
+
   if (!movie) {
     return <div>Loading...</div>;
   }
@@ -160,6 +211,55 @@ function MovieDetailsPage() {
                   <option value={4}>4</option>
                   <option value={5}>5</option>
                 </select>
+              </div>
+
+              <div className="showtimes-container">
+                {showtimes && showtimes.length > 0 ? (
+                  <div className="theaters">
+                    {showtimes
+                      .slice(0, visibleTheaters)
+                      .map((theater, index) => (
+                        <div className="theater-card" key={index}>
+                          <h3>
+                            <a
+                              href={theater.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {theater.theaterName}
+                            </a>
+                          </h3>
+                          <p>{theater.address}</p>
+                          {theater.showtimes.length > 0 ? (
+                            <div className="showtimes">
+                              {theater.showtimes.map((show, idx) => (
+                                <div key={idx} className="showtime">
+                                  <h4>{show.type}</h4>
+                                  <div className="times">
+                                    {show.times.map((time, i) => (
+                                      <span key={i} className="time">
+                                        {time}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p>No showtimes available</p>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  <p>No showtimes found for this movie.</p>
+                )}
+
+                {visibleTheaters < showtimes.length && (
+                  <button className="load-more" onClick={loadMoreTheaters}>
+                    Load More
+                  </button>
+                )}
               </div>
             </div>
           </div>
