@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavBar } from "../nav/nav";;
-import { auth, db, storage } from '../../config/firebase-config'; 
+import { auth } from '../../config/firebase-config'; 
 import { useState, useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBBtn, MDBRipple, MDBCardImage, MDBIcon } from 'mdb-react-ui-kit';
 import "./profileSettings.css";
@@ -11,7 +11,7 @@ function ProfileSettings() {
     const [user, setUser] = useState(null);
     const [profileImage, setProfileImage] = useState(profilePic); // Initialize with default image
     const [error, setError] = useState("");
-
+    
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {      
             setUser(currentUser);
