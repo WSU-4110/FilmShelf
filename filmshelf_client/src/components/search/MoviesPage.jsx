@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../nav/nav";
+import { auth, db } from "../../config/firebase-config";
+import { doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import "./MoviesPage.css";
 
 const MoviesPage = () => {
@@ -9,19 +12,19 @@ const MoviesPage = () => {
   const [selectedGenre, setSelectedGenre] = useState(null); // Track selected genre
   const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
   const [selectedPage, setSelectedPage] = useState(1);
-
+  const [selectedValue, setSelectedValue] = useState("None");
+  const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_TMDB_API;
 
   const handleSelectChange = async (e) => {
-    const value = e.target.value === 'None' ? null : parseInt(e.target.value);
+    const value = e.target.value === "None" ? null : parseInt(e.target.value);
     setSelectedValue(e.target.value);
     const uid = auth.currentUser?.uid;
     if (uid && selectedMovie) {
-      if (value===null){
-        deleteMovieFromWatched(uid, selectedMovie.id.toString())
-      }
-      else{
-      await updateMovieRating(uid, selectedMovie.id.toString(), value); 
+      if (value === null) {
+        deleteMovieFromWatched(uid, selectedMovie.id.toString());
+      } else {
+        await updateMovieRating(uid, selectedMovie.id.toString(), value);
       }
     }
   };
@@ -32,7 +35,7 @@ const MoviesPage = () => {
       await updateDoc(userRef, {
         [`watchedMovies.${movieId}`]: rating, // Firestore syntax for nested field update
       });
-  
+
       console.log(`Movie ${movieId} updated with rating: ${rating}`);
     } catch (error) {
       console.error("Error updating movie rating:", error);
@@ -42,11 +45,11 @@ const MoviesPage = () => {
   const deleteMovieFromWatched = async (uid, movieId) => {
     try {
       const userRef = doc(db, "users", uid);
-  
+
       await updateDoc(userRef, {
         [`watchedMovies.${movieId}`]: deleteField(),
       });
-  
+
       console.log(`Movie ${movieId} removed from watchedMovies.`);
     } catch (error) {
       console.error("Error deleting movie:", error);
@@ -65,11 +68,11 @@ const MoviesPage = () => {
         if (movieRating !== undefined) {
           setSelectedValue(movieRating.toString());
         } else {
-          setSelectedValue('None');
+          setSelectedValue("None");
         }
       } else {
         console.log("No user data found.");
-        setSelectedValue('None'); 
+        setSelectedValue("None");
       }
     } catch (error) {
       console.error("Error checking movie rating:", error);
@@ -103,11 +106,16 @@ const MoviesPage = () => {
   useEffect(() => {
     getMovies();
     getGenres();
-  }, [selectedPage]);   //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
+  }, [selectedPage]); //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
 
   // Handle when a movie is clicked
   const handleMovieClick = (movie) => {
-    setSelectedMovie(movie); // Set the clicked movie as selected
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      checkIfMovieRated(uid, movie.id.toString());
+    }
+    setSelectedMovie(movie);
+    console.log(movie.id);
   };
 
   // Handle modal close
@@ -140,15 +148,17 @@ const MoviesPage = () => {
     console.log(selectedPage);
   };
   const handleResetFilters = () => {
-    setSelectedGenre(null); // Reset selected genre
-    setSelectedPage(1); // Reset page to 1
-    setFilteredMovies(movieList); // Reset filtered movies to the full movie list
+    setSelectedGenre(null);
+    setSelectedPage(1);
+    setFilteredMovies(movieList);
+    setSelectedValue("None");
+    document.getElementById("genre-select").value = "";
   };
 
   return (
     <div>
       <NavBar />
-      <h1 style={{color:"white"}}>Movies</h1>
+      <h1 style={{ color: "white" }}>Movies</h1>
 
       {/* Genre Filter */}
       <div className="genre-filter-wrapper">
@@ -243,14 +253,35 @@ const MoviesPage = () => {
                 className="modal-poster" // Class for styling the poster
               />
               <div className="modal-text">
-                <h2>{selectedMovie.title}</h2>
+                <div style={{ display: "flex" }}>
+                  <h2>{selectedMovie.title}</h2>
+                  <button
+                    className="movie-link-button"
+                    onClick={() => {
+                      navigate(`/movies/${selectedMovie.id}`);
+                    }}
+                  >
+                    🔗
+                  </button>
+                </div>
                 <p>
                   <strong>Release Date:</strong> {selectedMovie.release_date}
                 </p>
                 <p>
                   <strong>Overview:</strong> {selectedMovie.overview}
                 </p>
-                {/* TODO: add more movie details here */}
+                <div>
+                  <strong>Your Rating:</strong>
+                  <br />
+                  <select value={selectedValue} onChange={handleSelectChange}>
+                    <option value={"None"}>None</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
