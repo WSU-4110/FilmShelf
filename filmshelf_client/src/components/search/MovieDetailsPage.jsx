@@ -124,7 +124,7 @@ function MovieDetailsPage() {
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
-            className="movie-poster"
+            className="movie-poster-1"
           />
 
           {/* Movie Info */}

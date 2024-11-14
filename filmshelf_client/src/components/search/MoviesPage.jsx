@@ -12,7 +12,69 @@ const MoviesPage = () => {
 
   const apiKey = import.meta.env.VITE_TMDB_API;
 
-  // Fetch movies
+  const handleSelectChange = async (e) => {
+    const value = e.target.value === 'None' ? null : parseInt(e.target.value);
+    setSelectedValue(e.target.value);
+    const uid = auth.currentUser?.uid;
+    if (uid && selectedMovie) {
+      if (value===null){
+        deleteMovieFromWatched(uid, selectedMovie.id.toString())
+      }
+      else{
+      await updateMovieRating(uid, selectedMovie.id.toString(), value); 
+      }
+    }
+  };
+  const updateMovieRating = async (uid, movieId, rating) => {
+    try {
+      const userRef = doc(db, "users", uid); // Reference to the user document
+      // Update the nested movie rating inside the watchedMovies map
+      await updateDoc(userRef, {
+        [`watchedMovies.${movieId}`]: rating, // Firestore syntax for nested field update
+      });
+  
+      console.log(`Movie ${movieId} updated with rating: ${rating}`);
+    } catch (error) {
+      console.error("Error updating movie rating:", error);
+    }
+  };
+
+  const deleteMovieFromWatched = async (uid, movieId) => {
+    try {
+      const userRef = doc(db, "users", uid);
+  
+      await updateDoc(userRef, {
+        [`watchedMovies.${movieId}`]: deleteField(),
+      });
+  
+      console.log(`Movie ${movieId} removed from watchedMovies.`);
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+    }
+  };
+
+  const checkIfMovieRated = async (uid, movieId) => {
+    try {
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        const movieRating = userData.watchedMovies?.[movieId];
+
+        if (movieRating !== undefined) {
+          setSelectedValue(movieRating.toString());
+        } else {
+          setSelectedValue('None');
+        }
+      } else {
+        console.log("No user data found.");
+        setSelectedValue('None'); 
+      }
+    } catch (error) {
+      console.error("Error checking movie rating:", error);
+    }
+  };
   const getMovies = () => {
     fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${selectedPage}`
@@ -41,7 +103,7 @@ const MoviesPage = () => {
   useEffect(() => {
     getMovies();
     getGenres();
-  }, [selectedPage]); //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
+  }, [selectedPage]);   //selected page is a dependency. Whenever it updates, it reruns the useEffect hook.
 
   // Handle when a movie is clicked
   const handleMovieClick = (movie) => {
@@ -86,7 +148,7 @@ const MoviesPage = () => {
   return (
     <div>
       <NavBar />
-      <h1>Movies</h1>
+      <h1 style={{color:"white"}}>Movies</h1>
 
       {/* Genre Filter */}
       <div className="genre-filter-wrapper">
