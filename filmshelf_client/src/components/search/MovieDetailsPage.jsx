@@ -12,6 +12,9 @@ function MovieDetailsPage() {
   const [director, setDirector] = useState("");
   const [selectedValue, setSelectedValue] = useState("None");
   const [activeTab, setActiveTab] = useState("details");
+  const [movies, setMovies] = useState([]);
+  const [showtimes, setShowtimes] = useState(null); // New state for SerpApi data
+
   const API_KEY = import.meta.env.VITE_TMDB_API;
 
   const handleSelectChange = async (e) => {
@@ -105,6 +108,49 @@ function MovieDetailsPage() {
     fetchMovieDetails();
   }, [id, API_KEY]);
 
+  // Fetch showtimes using SerpApi
+  useEffect(() => {
+    if (!movie) {
+      return;
+    }
+
+    const fetchShowtimes = async () => {
+      const params = new URLSearchParams({
+        api_key:
+          "357809ef5a930f4ac8206b5d33f17513539f29567b440da987dcc6384ce9699a",
+        engine: "google",
+        q: `${movie.title} theater showtimes`,
+        google_domain: "google.com",
+        gl: "us",
+        hl: "en",
+        location: "Detroit, Michigan, United States",
+      }).toString();
+
+      try {
+        const response = await fetch(`/api/showtimes?${params}`);
+        const data = await response.json();
+
+        // Extract only showtimes information
+        const showtimesData = data.showtimes?.flatMap((showtime) =>
+          showtime.theaters.map((theater) => ({
+            theaterName: theater.name,
+            link: theater.link,
+            showtimes: theater.showing.map((show) => ({
+              type: show.type,
+              times: show.time,
+            })),
+          }))
+        );
+
+        setShowtimes(showtimesData);
+      } catch (error) {
+        console.error("Error fetching showtimes:", error);
+      }
+    };
+
+    fetchShowtimes();
+  }, [movie]);
+
   if (!movie) {
     return <div>Loading...</div>;
   }
@@ -160,6 +206,32 @@ function MovieDetailsPage() {
                   <option value={5}>5</option>
                 </select>
               </div>
+              {showtimes && (
+                <div>
+                  <h2>Showtimes</h2>
+                  {showtimes?.map((theater, index) => (
+                    <div key={index}>
+                      <h3>
+                        <a
+                          href={theater.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {theater.theaterName}
+                        </a>
+                      </h3>
+                      <ul>
+                        {theater.showtimes.map((show, idx) => (
+                          <li key={idx}>
+                            <strong>{show.type}</strong>:{" "}
+                            {show.times.join(", ")}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

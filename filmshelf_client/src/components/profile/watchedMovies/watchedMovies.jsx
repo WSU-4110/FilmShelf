@@ -105,6 +105,7 @@ export default function WatchedMovies() {
       console.error("Error fetching movies:", error);
     }
   };
+
   const getWatchedMovies = async (uid) => {
     try {
       const userRef = doc(db, "users", uid);
