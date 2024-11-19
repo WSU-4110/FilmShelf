@@ -1,4 +1,4 @@
-import { addDoc, collection, query, getDocs, limit, startAfter, orderBy, where} from "firebase/firestore";
+import { addDoc, collection, query, getDocs, limit, startAfter, orderBy, where, updateDoc, arrayUnion, doc} from "firebase/firestore";
 import { db } from "../../config/firebase-config";
 
 export const createReviews = async (title, content, author, movieId, userId) => {
@@ -32,3 +32,17 @@ export const getReviews = async (mid) => {
         console.error("Error getting reviews", error)
     }
 }
+
+export const addReviewToUser = async (uid, rid) => {
+    try {
+      const userRef = doc(db, "users", uid);
+      await updateDoc(userRef, {
+        reviews: arrayUnion(rid),
+      });
+  
+      console.log(`Review ID ${rid} added to user ${uid}`);
+    } catch (error) {
+      console.error("Error adding review to user:", error);
+    }
+  };
+
