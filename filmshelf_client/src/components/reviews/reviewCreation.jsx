@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { NavBar } from "../nav/nav";
 import { fetchMovieDetails } from "../services/movies";
-import { createReviews as createReviewDocument } from "../services/reviewsServices"; // renamed here
+import { createReviews as createReviewDocument, addReviewToUser } from "../services/reviewsServices"; // renamed here
 import { getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore"; 
 import { db } from "../../config/firebase-config"; 
@@ -52,19 +52,27 @@ export const CreateReview = () => {
     }, [id, auth]);
 
     const handleCreateReview = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault(); // Prevent form submission's default behavior
+    
         try {
-            const docRef = await createReviewDocument(rTitle, rContent, user.displayName, id, user.uid); // updated here
+            // Create a new review document
+            const docRef = await createReviewDocument(rTitle, rContent, user.displayName, id, user.uid);
             console.log("Review created successfully!");
+    
+            // Clear form inputs
             setrTitle("");
             setrContent("");
-            
+    
+            // Add the review ID to the user's document
+            await addReviewToUser(user.uid, docRef.id);
+    
+            // Navigate to the newly created review's page
             navigate(`/reviews/${docRef.id}`);
         } catch (error) {
             console.error("Error creating review:", error);
         }
     };
+    
 
     return (
         <div>
