@@ -7,7 +7,7 @@ import "./profileSettings.css";
 import profilePic from '../../assets/profileImage.jpg';
 import 'boxicons'
 
-function ProfileSettings() {
+function ProfileSettings({onUpdateProfileImage}) {
     const [user, setUser] = useState(null);
     const [profileImage, setProfileImage] = useState(profilePic); // Initialize with default image
     const [error, setError] = useState("");
@@ -64,6 +64,7 @@ function ProfileSettings() {
         <>
             <NavBar/>
 
+                        <h1 style={{color: "white", textAlign:'center', marginTop:'25px'}}>Profile Settings</h1>
                         <img style={{borderRadius: '50%', height:'200px', width:'200px', marginLeft:'auto', marginRight:'auto', marginTop:'25px', marginBottom:'25px', display:'block'}} src={profileImage} className='img-fluid shadow-4' alt='Profile' />
                         <p style={{color: "white", textAlign:'center'}}>{user?.displayName}</p>
                         <p style={{color: "white", textAlign:'center'}}>{user?.email}</p>

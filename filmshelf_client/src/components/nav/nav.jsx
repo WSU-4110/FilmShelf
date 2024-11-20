@@ -9,6 +9,7 @@ import { signInWithGoogle, logout } from '../auth';
 import { Link } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import SearchBar from '../search/SearchBar';
+import React from 'react';
 
 export const NavBar = () => {
   const [user, setUser] = useState(null);
