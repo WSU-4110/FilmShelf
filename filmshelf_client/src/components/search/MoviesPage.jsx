@@ -13,6 +13,7 @@ const MoviesPage = () => {
   const [selectedMovie, setSelectedMovie] = useState(null); // Track the clicked movie
   const [selectedPage, setSelectedPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("None");
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_TMDB_API;
 
@@ -79,6 +80,7 @@ const MoviesPage = () => {
     }
   };
   const getMovies = () => {
+    setIsLoading(true);
     fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${selectedPage}`
     )
@@ -87,6 +89,7 @@ const MoviesPage = () => {
         const filteredMovies = json.results.filter((movie) => !movie.adult); // Filter out adult movies
         setMovieList(filteredMovies); // Set the filtered list of movies
         setFilteredMovies(filteredMovies); // Set filtered movies initially to all movies
+        setIsLoading(false);
       })
       .catch((error) => console.error("Error fetching movies:", error));
   };
@@ -160,6 +163,9 @@ const MoviesPage = () => {
       <NavBar />
       <h1 style={{ color: "white" }}>Movies</h1>
 
+      {/* Loading Spinner */}
+      {isLoading && <div className="loading-spinner">Loading...</div>}
+
       {/* Genre Filter */}
       <div className="genre-filter-wrapper">
         {/* Buttons for specific genres */}
@@ -186,6 +192,7 @@ const MoviesPage = () => {
         <div className="genre-dropdown-wrapper">
           <select
             id="genre-select"
+            data-testid="genre-select"
             onChange={(e) =>
               filterMoviesByGenre(
                 e.target.value ? parseInt(e.target.value) : null
@@ -220,18 +227,23 @@ const MoviesPage = () => {
       </div>
 
       <div className="content">
-        {filteredMovies.map(
-          (movie) =>
-            movie.poster_path && (
-              <div className="movie-poster-container" key={movie.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className="movie-poster"
-                  onClick={() => handleMovieClick(movie)} // Click to show modal
-                />
-              </div>
-            )
+        {/* Show 'No Movies Found' if filteredMovies is empty */}
+        {filteredMovies.length === 0 ? (
+          <p>No Movies Found</p>
+        ) : (
+          filteredMovies.map(
+            (movie) =>
+              movie.poster_path && (
+                <div className="movie-poster-container" key={movie.id}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                    className="movie-poster"
+                    onClick={() => handleMovieClick(movie)} // Click to show modal
+                  />
+                </div>
+              )
+          )
         )}
       </div>
       <div className="movie-pages-buttons-wrapper">
