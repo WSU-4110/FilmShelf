@@ -7,12 +7,8 @@
     "dev": "vite",
     "build": "vite build && npm run test",
     "lint": "eslint .",
-    "preview": "vite preview",
-<<<<<<< HEAD
-    "test":"vitest"
-=======
-    "test": "vitest"
->>>>>>> 186c005c8e8b580c3712215640ac0b6f25ca0321
+    "test":"vitest",
+    "ci" : "npm run build && npm run test"
   },
   "dependencies": {
     "axios": "^1.7.7",

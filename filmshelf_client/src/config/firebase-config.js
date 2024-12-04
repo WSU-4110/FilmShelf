@@ -6,13 +6,13 @@ import { getFirestore } from "firebase/firestore";
 const isBrowser = typeof window !== "undefined";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA1XdAictL8tS3QpQUuROzKCL6sRq8VLL4",
-    authDomain: "filmshelf-de256.firebaseapp.com",
-    projectId: "filmshelf-de256",
-    storageBucket: "filmshelf-de256.appspot.com",
-    messagingSenderId: "128798557656",
-    appId: "1:128798557656:web:e88faab0c6bc44ee5ddead",
-    measurementId: "G-B1TB39HP52",
+  apiKey: "AIzaSyASuSsmUjZyZPTZ0C4_U5K1KACWtCu4HmE",
+  authDomain: "filmshelf-de256.firebaseapp.com",
+  projectId: "filmshelf-de256",
+  storageBucket: "filmshelf-de256.firebasestorage.app",
+  messagingSenderId: "128798557656",
+  appId: "1:128798557656:web:e88faab0c6bc44ee5ddead",
+  measurementId: "G-B1TB39HP52"
 };
 
 console.log("Before Firebase Initialization");
