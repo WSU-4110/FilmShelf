@@ -4,6 +4,7 @@ import axios from "axios";
 import { NavBar } from "../nav/nav";
 import { auth, db } from "../../config/firebase-config";
 import { doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
+import { Review } from "../reviews/reviews";
 import "./MovieDetailsPage.css";
 
 function MovieDetailsPage() {
@@ -177,10 +178,10 @@ function MovieDetailsPage() {
           Details
         </button>
         <button
-          className={activeTab === "discussion" ? "active-tab" : ""}
-          onClick={() => setActiveTab("discussion")}
+          className={activeTab === "review" ? "active-tab" : ""}
+          onClick={() => setActiveTab("review")}
         >
-          Discussion
+          Reviews
         </button>
       </div>
 
@@ -202,11 +203,7 @@ function MovieDetailsPage() {
               <div>
                 <strong>Your Rating:</strong>
                 <br />
-                <select
-                  value={selectedValue}
-                  onChange={handleSelectChange}
-                  data-testid="rating-dropdown"
-                >
+                <select value={selectedValue} onChange={handleSelectChange}>
                   <option value="None">None</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
@@ -269,8 +266,9 @@ function MovieDetailsPage() {
         </div>
       ) : (
         <div className="discussion-content">
-          <h2>Discussion</h2>
+          <h2>Review</h2>
           <p>Share your thoughts on this movie!</p>
+          <Review></Review>
         </div>
       )}
     </div>

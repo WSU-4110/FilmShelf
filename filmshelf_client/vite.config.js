@@ -13,9 +13,12 @@ export default defineConfig({
       },
     },
   },
-  test: {
-    environment: 'jsdom', // Use jsdom for DOM-like environment
-    globals: true, // Enable global test functions like `describe` and `it`
-    setupFiles: './vitest.setup.js', // (Optional) Path to setup file for mocking
+  build: {
+    target: 'esnext',
   },
-})
+  test: {
+    environment: 'jsdom', 
+    globals: true, 
+    setupFiles: './vitest.setup.js', 
+  },
+});
