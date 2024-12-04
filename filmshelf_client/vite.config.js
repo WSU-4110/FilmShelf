@@ -18,4 +18,4 @@ export default defineConfig({
     globals: true, // Enable global test functions like `describe` and `it`
     setupFiles: './vitest.setup.js', // (Optional) Path to setup file for mocking
   },
-});
+})

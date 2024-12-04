@@ -1,1 +1,1 @@
-import '@testing-library/jest-dom'; // Adds Jest DOM matchers
+import '@testing-library/jest-dom';
