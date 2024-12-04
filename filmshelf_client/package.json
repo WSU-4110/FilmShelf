@@ -8,7 +8,7 @@
     "build": "vite build && npm run test",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
     "preview": "vite preview",
     "test": "vitest"
   },
