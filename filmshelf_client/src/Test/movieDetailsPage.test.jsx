@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
-import MoviesPage from "../MoviesPage";
+import MoviesPage from "../components/search/MoviesPage";
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom"; // Import MemoryRouter for routing context
