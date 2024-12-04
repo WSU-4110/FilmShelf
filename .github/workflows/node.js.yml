@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["ibrahim_ivan_unittest"]
   pull_request:
-    branches: ["main"]
+    branches: ["ibrahim_ivan_unittest"]
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
         working-directory: filmshelf_client
 
       - name: Build project
-        run: npm run build --if-present
+        run: npm run build
         working-directory: filmshelf_client
 
       - name: Run tests
