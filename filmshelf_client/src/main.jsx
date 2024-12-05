@@ -19,7 +19,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CreateReview } from "./components/reviews/reviewCreation";
 import ReviewPage from "./components/reviews/reviewPage";
 import UserReviews from "./components/profile/reviewsPage/reviewsPage";
-// Update your router configuration
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +76,10 @@ const router = createBrowserRouter([
     path: "/person/:personId", // New route for PersonDetailsPage
     element: <PersonDetailsPage />,
   },
+  {
+    path: "/reviews",
+    element: <UserReviews/>
+  }
   
 ]);
 
