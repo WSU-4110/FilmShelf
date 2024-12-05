@@ -12,11 +12,13 @@ import UsersPage from "./components/search/UsersPage";
 import Register from "./components/register/register.jsx";
 import WatchedMovies from "./components/profile/watchedMovies/watchedMovies";
 import MovieDetailsPage from "./components/search/MovieDetailsPage"; 
+import PersonDetailsPage from "./components/search/PersonDetailsPage";
 import UserLists from "./components/profile/listPage/listPage.jsx";
 import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// Update your router configuration
+import { CreateReview } from "./components/reviews/reviewCreation";
+import ReviewPage from "./components/reviews/reviewPage";
+import UserReviews from "./components/profile/reviewsPage/reviewsPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,8 +61,24 @@ const router = createBrowserRouter([
     element: <WatchedMovies/>
   },
   {
+    path:"/:id/submit",
+    element: <CreateReview/>
+  },
+  {
+    path:"/reviews/:id",
+    element: <ReviewPage/>
+  },
+  {
     path: "/lists",
     element: <UserLists />,
+  },
+  {
+    path: "/person/:personId", // New route for PersonDetailsPage
+    element: <PersonDetailsPage />,
+  },
+  {
+    path: "/reviews",
+    element: <UserReviews/>
   }
   
 ]);

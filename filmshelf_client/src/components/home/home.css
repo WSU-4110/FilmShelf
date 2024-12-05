@@ -9,7 +9,7 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #000000;
+  background-color: #191a1c;
 }
 
 /* Home container */
@@ -19,18 +19,11 @@ body {
   min-height: 100vh;
 }
 
-/* Header styling */
-.home-header {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 20px;
-  text-align: left;
-}
-
 /* Main content grid */
 .home-main {
   flex-grow: 1;
   padding: 20px;
+  background-color: #191a1c; /* Solid black background */
 }
 
 /* Swiper styling */
@@ -39,71 +32,24 @@ body {
   position: relative;
 }
 
-/* Position No.# on top of the white card */
-.swiper-slide-number {
-  position: absolute;
-  bottom: 10px;  
-  right: 80px;  
-  color: #000000;
-  font-size: 18px;
-  z-index: 20;  
-}
-
-/* Custom navigation for arrows placed next to the No.# */
-.custom-navigation {
-  position: absolute;
-  bottom: 230px; 
-  right: 30px; 
-  display: flex;
-  z-index: 20; 
-}
-
-.custom-arrow {
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-left: 5px; /* Space between the arrows */
-}
-
-.custom-arrow:hover {
-  background-color: #333;
-}
-
-/* Default Buttons gone*/
-.swiper-button-prev, .swiper-button-next {
-  display: none;
-}
-
-/* Adjust the text block to show more */
-.swiper-info {
-  flex-grow: 1;
-  text-align: left;
-  padding: 10px;
-}
-
-.swiper-info p {
-  color: #555;
-  max-height: 150px; 
-  overflow: hidden;
-}
-
-/* Adjustments to swiper slide content for better display */
+/* Swiper slide content with opaque overlay */
 .swiper-slide-content {
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px #00000033;  
+  box-shadow: 0 4px 8px #00000033;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)), 
+                    url('https://image.tmdb.org/t/p/w600_and_h900_bestv2${film.poster_path}');
+  background-size: cover;
+  background-position: top;
+  opacity: 0.9;
 }
 
+/* Swiper image */
 .swiper-image {
   width: 250px;
   height: auto;
@@ -111,7 +57,7 @@ body {
   margin-right: 50px;
 }
 
-/*Text location and setup*/
+/* Swiper info styling */
 .swiper-info {
   flex-grow: 1;
   text-align: left;
@@ -120,61 +66,130 @@ body {
 .swiper-info h3 {
   margin-bottom: 10px;
   font-size: 24px;
+  color: #ffffff
 }
 
 .swiper-info p {
+  color: #ffffff;
   max-height: none;
 }
 
-/* Swiper pagination styling */
-.swiper-pagination-bullet {
-  background-color: #fff;
+/* Position No.# on top of the white card */
+.swiper-slide-number {
+  position: absolute;
+  bottom: 10px;  
+  right: 80px;
+  background: transparent;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  z-index: 20;  
+  pointer-events: none;
+}
+
+/* Other styles */
+.custom-prev, .custom-next {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; 
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.custom-prev {
+  margin-right: 35px;
+}
+
+.custom-next {
+  margin-left: 20px;
+}
+
+.custom-arrow:hover {
+  background-color: #333;
 }
 
 /* Upcoming Movies Section */
 .home-middle {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 20px;
-  text-align: left;
+  margin: 20px 0;
 }
 
-/* Grid layout for upcoming items */
+.item-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.item-card {
+  background-color: #191a1c;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.genre-badge {
+  display: inline-block;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 8px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+/* Grid layout for upcoming items (2 columns by 3 rows) */
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(3, auto); /* 3 rows */
   gap: 30px;
   justify-items: center;
   padding: 20px;
 }
 
-/* Item card styling */
+/* Item card styling for upcoming movies */
 .item-card {
-  background-color: white;
+  background-color: #ffffff; /* White background for the item card */
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px #00000088;
-  padding: 10px;
+  padding: 20px;
   width: 100%;
   max-width: 600px;
+  transition: transform 0.3s ease;
 }
 
-/* Upcoming Film Styles */
+.item-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px #000000bd;
+}
+
+/* Horizontal layout for upcoming movie cards */
 .upcoming-film {
   display: flex;
   align-items: flex-start;
   margin-bottom: 20px;
 }
 
+/* Image within each item card */
 .upcoming-film-image {
   width: 100px;
   height: auto;
   margin-right: 20px;
+  border-radius: 5px; /* Added for a soft corner effect */
 }
 
+/* Title and description for upcoming movies */
 .upcoming-film-title {
   font-weight: bold;
   margin: 0;
+  color: #000; /* Black color for the title */
 }
 
 .upcoming-film-description {
@@ -184,72 +199,11 @@ body {
   word-wrap: break-word;
 }
 
-.item-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px #000000bd;
-}
-
-/* Footer styling */
-.home-footer {
-  background-color: #c0c0c000;
-  color: #ffffff;
-  text-align: center;
-  padding: 10px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
-/* Modal container */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 50%;
-  display: flex;
-  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8),
-              0 0 30px 10px rgba(11, 77, 77, 0.5);
-}
-
-.modal-body {
-  display: flex;
-  align-items: center;
-}
-
-.modal-poster {
-  margin-right: 20px;
-}
-
-.modal-info {
-  text-align: left;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #333;
-}
-
+/* Genre badge styling */
 .genre-badge {
   display: inline-block;
-  background-color: #333;
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
   padding: 5px;
   margin-right: 5px;
   margin-top: 10px;
@@ -257,8 +211,34 @@ body {
   font-size: 12px;
 }
 
+/* Release date styling */
 .release-date {
   font-size: 14px;
-  color: #888;
+  color: #000000;
   margin-top: 5px;
+}
+/* Footer styling */
+.home-footer {
+  background-color: #191a1c;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+/* Header styling */
+.home-header {
+  background-color: #191a1c; /* Updated header background color */
+  color: #ffffff;
+  padding: 20px;
+  text-align: left;
+}
+
+/* Upcoming Movies Section */
+.home-middle {
+  background-color: #191a1c;
+  color: #ffffff;
+  padding: 20px;
+  text-align: left;
 }

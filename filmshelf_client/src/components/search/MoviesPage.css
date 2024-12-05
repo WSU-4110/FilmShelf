@@ -58,6 +58,14 @@
     box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8), 
                 0 0 30px 10px rgba(11, 77, 77, 0.5);  /* Glowing effect */
 }
+.movie-link-button{
+    border-radius: 8px;
+    margin-left: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.35rem;
+    color: #007BFF;
+}
 
 .modal-body {
     display: flex; /* Align image and text side by side */
@@ -199,3 +207,15 @@
     box-shadow: 0 4px 8px rgba(211, 47, 47, 0.4); /* Add shadow */
   }
   
+  /* Add this CSS for the loading spinner */
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+  }
