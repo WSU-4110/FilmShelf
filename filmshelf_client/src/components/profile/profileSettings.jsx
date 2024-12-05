@@ -16,14 +16,31 @@ function ProfileSettings() {
     
     useEffect(() => {
         const checkAuthProvider = () => {
-            const user = auth.currentUser;
-            if (user) {
-                const provider = user.providerData[0]?.providerId;
+            const currentUser = auth.currentUser;
+            setUser(currentUser); // Update the user state
+            if (currentUser) {
+                const provider = currentUser.providerData[0]?.providerId;
                 setIsGoogleUser(provider === 'google.com');
             }
         };
-        checkAuthProvider();
+
+        checkAuthProvider(); // Call the function to check the auth provider
+
+        // Optional: Add a cleanup or listener for auth state changes
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setUser(user);
+            if (user) {
+                const provider = user.providerData[0]?.providerId;
+                setIsGoogleUser(provider === 'google.com');
+            } else {
+                setIsGoogleUser(false);
+            }
+        });
+
+        return () => unsubscribe(); // Cleanup listener on component unmount
     }, []);
+
+    console.log(user);
 
     const buttonFactory = (type) => {
         switch(type) {
@@ -69,14 +86,15 @@ function ProfileSettings() {
         <>
             <NavBar/>
 
-                        <img style={{borderRadius: '50%', height:'200px', width:'200px', marginLeft:'auto', marginRight:'auto', marginTop:'25px', marginBottom:'25px', display:'block'}} src={profileImage} className='img-fluid shadow-4' alt='Profile' />
-                        <p style={{color: "white", textAlign:'center'}}>{user?.displayName}</p>
-                        <p style={{color: "white", textAlign:'center'}}>{user?.email}</p>
+                <img style={{borderRadius: '50%', height:'200px', width:'200px', marginLeft:'auto', marginRight:'auto', marginTop:'25px', marginBottom:'25px', display:'block'}} src={profileImage} className='img-fluid shadow-4' alt='Profile' />
+                <p style={{color: "white", textAlign:'center'}}>{user?.displayName}</p>
+                <p style={{color: "white", textAlign:'center'}}>{user?.email}</p>
             
             <MDBContainer >
                 <MDBRow className="justify-content-center">
                     <MDBCol  xl="4">
                         <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
+                        
                             <MDBCardBody className='p-4'>
                                 <p>Choose to change:</p>
                                 {isGoogleUser ? (
