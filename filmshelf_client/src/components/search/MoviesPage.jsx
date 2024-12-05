@@ -82,7 +82,7 @@ const MoviesPage = () => {
   const getMovies = () => {
     setIsLoading(true);
     fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${selectedPage}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&certification_country=US&page=${selectedPage}&certification.lte=PG-13&certification.gte=G&sort_by=popularity.ascend&vote_count.gte=1`
     )
       .then((res) => res.json())
       .then((json) => {

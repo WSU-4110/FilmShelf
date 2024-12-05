@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
-import './SearchBar.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Dropdown from "react-bootstrap/Dropdown";
+import "./SearchBar.css";
 
 function SearchBar() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const navigate = useNavigate();
 
   const API_KEY = import.meta.env.VITE_TMDB_API;
-  const TMDB_BASE_URL = 'https://api.themoviedb.org/3/search/movie';
-  const TMDB_MOVIE_CREDITS_URL = 'https://api.themoviedb.org/3/movie';
+  const TMDB_MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie";
+  const TMDB_PERSON_SEARCH_URL = "https://api.themoviedb.org/3/search/person";
+  const TMDB_MOVIE_CREDITS_URL = "https://api.themoviedb.org/3/movie";
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
@@ -21,50 +22,83 @@ function SearchBar() {
 
     if (value) {
       try {
-        const response = await axios.get(TMDB_BASE_URL, {
-          params: {
-            api_key: API_KEY,
-            query: value,
-          },
-        });
+        // Fetch movies and people in parallel
+        const [movieResponse, personResponse] = await Promise.all([
+          axios.get(TMDB_MOVIE_SEARCH_URL, {
+            params: { api_key: API_KEY, query: value },
+          }),
+          axios.get(TMDB_PERSON_SEARCH_URL, {
+            params: { api_key: API_KEY, query: value },
+          }),
+        ]);
 
+        // Process movie results
         const movies = await Promise.all(
-          response.data.results.slice(0, 5).map(async (movie) => {
-            const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : 'N/A';
-
-            const creditsResponse = await axios.get(`${TMDB_MOVIE_CREDITS_URL}/${movie.id}/credits`, {
-              params: { api_key: API_KEY },
-            });
-
-            const director = creditsResponse.data.crew.find((person) => person.job === 'Director');
+          movieResponse.data.results.slice(0, 5).map(async (movie) => {
+            let director = "Unknown";
+            try {
+              const creditsResponse = await axios.get(
+                `${TMDB_MOVIE_CREDITS_URL}/${movie.id}/credits`,
+                { params: { api_key: API_KEY } }
+              );
+              const directorInfo = creditsResponse.data.crew.find(
+                (person) => person.job === "Director"
+              );
+              if (directorInfo) {
+                director = directorInfo.name;
+              }
+            } catch (error) {
+              console.error(
+                `Error fetching credits for movie ID ${movie.id}:`,
+                error
+              );
+            }
 
             return {
+              type: "movie",
               id: movie.id,
               title: movie.title,
               poster_path: movie.poster_path,
-              releaseYear,
-              director: director ? director.name : 'Unknown',
+              releaseYear: movie.release_date
+                ? movie.release_date.split("-")[0]
+                : "N/A",
+              director,
             };
           })
         );
 
-        setFilteredOptions(movies);
+        // Process person results
+        const people = personResponse.data.results.slice(0, 5).map((person) => ({
+          type: "person",
+          id: person.id,
+          name: person.name,
+          profile_path: person.profile_path,
+        }));
+
+        // Combine and set options
+        setFilteredOptions([...movies, ...people]);
       } catch (error) {
-        console.error('Error fetching data from TMDB API:', error);
+        console.error("Error fetching search results from TMDB:", error);
       }
     } else {
       setFilteredOptions([]);
     }
   };
 
-  const handleOptionClick = (movie) => {
-    setQuery(movie.title);
+  const handleOptionClick = (option) => {
+    if (option.type === "movie") {
+      navigate(`/movies/${option.id}`);
+    } else if (option.type === "person") {
+      navigate(`/person/${option.id}`);
+    }
+    setQuery("");
     setFilteredOptions([]);
-    navigate(`/movies/${movie.id}`);
   };
 
-  const truncateTitle = (title, maxLength = 45) => {
-    return title.length > maxLength ? `${title.substring(0, maxLength)}...` : title;
+  const truncateTitle = (title, maxLength = 35) => {
+    return title && title.length > maxLength
+      ? `${title.substring(0, maxLength)}...`
+      : title;
   };
 
   return (
@@ -72,30 +106,48 @@ function SearchBar() {
       <InputGroup>
         <Form.Control
           type="text"
-          placeholder="Search for Movies..."
+          placeholder="Search for Movies, Cast, or Crew..."
           value={query}
           onChange={handleInputChange}
           className="form-control"
-          style={{ width: '400px' }}
+          style={{ width: "400px" }}
         />
       </InputGroup>
 
       {filteredOptions.length > 0 && (
         <div className="dropdown-container">
           <Dropdown.Menu show className="w-100">
-            {filteredOptions.map((movie, index) => (
-              <Dropdown.Item key={index} onClick={() => handleOptionClick(movie)}>
+            {filteredOptions.map((option, index) => (
+              <Dropdown.Item
+                key={index}
+                onClick={() => handleOptionClick(option)}
+              >
                 <div className="dropdown-item-content">
                   <img
-                    src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                    alt={movie.title}
+                    src={
+                      option.type === "movie"
+                        ? `https://image.tmdb.org/t/p/w92${option.poster_path}`
+                        : `https://image.tmdb.org/t/p/w92${option.profile_path}`
+                    }
+                    alt={option.title || option.name}
                     className="dropdown-item-poster"
                   />
                   <div className="dropdown-item-details">
-                    <strong className="dropdown-item-title">{truncateTitle(movie.title)}</strong>
-                    <div className="dropdown-item-subtitle">
-                      {movie.releaseYear}, Directed by <strong>{movie.director}</strong>
-                    </div>
+                    {option.type === "movie" ? (
+                      <>
+                        <strong className="dropdown-item-title">
+                          {truncateTitle(option.title)}
+                        </strong>
+                        <div className="dropdown-item-subtitle">
+                          {option.releaseYear}, Directed by{" "}
+                          <strong>{option.director}</strong>
+                        </div>
+                      </>
+                    ) : (
+                      <strong className="dropdown-item-title">
+                        {truncateTitle(option.name)}
+                      </strong>
+                    )}
                   </div>
                 </div>
               </Dropdown.Item>
