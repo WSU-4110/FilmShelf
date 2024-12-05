@@ -12,6 +12,7 @@ import UsersPage from "./components/search/UsersPage";
 import Register from "./components/register/register.jsx";
 import WatchedMovies from "./components/profile/watchedMovies/watchedMovies";
 import MovieDetailsPage from "./components/search/MovieDetailsPage"; 
+import PersonDetailsPage from "./components/search/PersonDetailsPage";
 import UserLists from "./components/profile/listPage/listPage.jsx";
 import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -73,10 +74,9 @@ const router = createBrowserRouter([
     element: <UserLists />,
   },
   {
-    path: "/reviews",
-    element: <UserReviews/>
-  }
-
+    path: "/person/:personId", // New route for PersonDetailsPage
+    element: <PersonDetailsPage />,
+  },
   
 ]);
 
