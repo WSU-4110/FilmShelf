@@ -17,6 +17,7 @@ import "./config/firebase-config";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CreateReview } from "./components/reviews/reviewCreation";
 import ReviewPage from "./components/reviews/reviewPage";
+import UserReviews from "./components/profile/reviewsPage/reviewsPage";
 // Update your router configuration
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: "/lists",
     element: <UserLists />,
+  },
+  {
+    path: "/reviews",
+    element: <UserReviews/>
   }
 
   
