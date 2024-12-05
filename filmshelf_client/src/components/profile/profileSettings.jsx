@@ -6,6 +6,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCa
 import "./profileSettings.css";
 import profilePic from '../../assets/profileImage.jpg';
 import 'boxicons'
+import { signInWithGoogle } from "../auth";
 
 function ProfileSettings() {
     const [user, setUser] = useState(null);
@@ -24,7 +25,7 @@ function ProfileSettings() {
         switch(type) {
             case 'ChangeAccount':
                 return (
-                    <button className='chngAcc'>
+                    <button className='chngAcc' onClick={signInWithGoogle}>
                         <box-icon name='user-circle'></box-icon>
                         <p>Account</p>
                     </button>
@@ -75,7 +76,10 @@ function ProfileSettings() {
                             <MDBCardBody className='p-4'>
                                 <p>Choose to change:</p>
                                 <div className='profileSettingsButtons'>
-                                    {buttonFactory('ChangeAccount')}
+                                    <button onClick={signInWithGoogle} className='chngAcc'>
+                                        <box-icon name='user-circle'></box-icon>
+                                        <p>Change Profile</p>
+                                    </button>
                                     {buttonFactory('ChangePassword')}
                                     <button onClick={() => document.getElementById("fileInput").click()} className='chngImg'>
                                         <box-icon name='image'></box-icon>
