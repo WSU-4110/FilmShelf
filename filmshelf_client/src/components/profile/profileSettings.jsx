@@ -12,13 +12,17 @@ function ProfileSettings() {
     const [user, setUser] = useState(null);
     const [profileImage, setProfileImage] = useState(profilePic); // Initialize with default image
     const [error, setError] = useState("");
+    const [isGoogleUser, setIsGoogleUser] = useState(false);
     
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {      
-            setUser(currentUser);
-        });
-
-        return () => unsubscribe();
+        const checkAuthProvider = () => {
+            const user = auth.currentUser;
+            if (user) {
+                const provider = user.providerData[0]?.providerId;
+                setIsGoogleUser(provider === 'google.com');
+            }
+        };
+        checkAuthProvider();
     }, []);
 
     const buttonFactory = (type) => {
@@ -75,12 +79,14 @@ function ProfileSettings() {
                         <MDBCard style={{ borderRadius: '15px', borderWidth: '0', backgroundColor: 'lightsteelblue'}}>
                             <MDBCardBody className='p-4'>
                                 <p>Choose to change:</p>
-                                <div className='profileSettingsButtons'>
+                                {isGoogleUser ? (
+                                    <>
+                                    <div className='profileSettingsButtons'>
                                     <button onClick={signInWithGoogle} className='chngAcc'>
                                         <box-icon name='user-circle'></box-icon>
-                                        <p>Change Profile</p>
+                                        <p>Change Account</p>
                                     </button>
-                                    {buttonFactory('ChangePassword')}
+
                                     <button onClick={() => document.getElementById("fileInput").click()} className='chngImg'>
                                         <box-icon name='image'></box-icon>
                                         <p>Change Profile</p>
@@ -94,6 +100,16 @@ function ProfileSettings() {
                                     />
                                     {error && <p style={{ color: 'red' }}>{error}</p>}  
                                 </div>
+                                </>
+                                ) : (
+                                    <>
+                                        <button>Change Password</button>
+                                        <button>Change Image</button>
+                                    </>
+
+                                )}
+                                
+                            
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
