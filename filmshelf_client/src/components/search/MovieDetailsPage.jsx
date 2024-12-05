@@ -15,6 +15,10 @@ function MovieDetailsPage() {
   const [activeTab, setActiveTab] = useState("details");
   const [visibleTheaters, setVisibleTheaters] = useState(4);
   const [showtimes, setShowtimes] = useState([]); // New state for SerpApi data
+  const [cast, setCast] = useState([]);
+  const [writers, setWriters] = useState([]);
+  const [producers, setProducers] = useState([]);
+  const [cinematographers, setCinematographers] = useState([]);
 
   const API_KEY = import.meta.env.VITE_TMDB_API;
   const SERPAPI_KEY = import.meta.env.VITE_SERPAPI_API;
@@ -99,10 +103,33 @@ function MovieDetailsPage() {
             },
           }
         );
+
+        // Set director
         const directorInfo = creditsResponse.data.crew.find(
           (person) => person.job === "Director"
         );
         setDirector(directorInfo ? directorInfo.name : "Unknown");
+
+        // Set cast and crew details
+        setCast(creditsResponse.data.cast.slice(0, 30)); // Limit cast to top 30
+        setWriters(
+          creditsResponse.data.crew.filter(
+            (person) => person.job === "Writer" || person.job === "Screenplay"
+          )
+        );
+        setProducers(
+          creditsResponse.data.crew.filter(
+            (person) =>
+              person.job === "Producer" || person.job === "Executive Producer"
+          )
+        );
+        setCinematographers(
+          creditsResponse.data.crew.filter(
+            (person) =>
+              person.job === "Director of Photography" ||
+              person.job === "Cinematographer"
+          )
+        );
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
@@ -110,7 +137,6 @@ function MovieDetailsPage() {
     fetchMovieDetails();
   }, [id, API_KEY]);
 
-  // Fetch showtimes using SerpApi
   useEffect(() => {
     if (!movie) {
       return;
@@ -131,7 +157,6 @@ function MovieDetailsPage() {
         const response = await fetch(`/api/showtimes?${params}`);
         const data = await response.json();
 
-        // Extract only showtimes information
         const showtimesData = data.showtimes?.flatMap((showtime) =>
           showtime.theaters.map((theater) => ({
             theaterName: theater.name,
@@ -143,10 +168,10 @@ function MovieDetailsPage() {
           }))
         );
 
-        setShowtimes(showtimesData || []); // Set showtimes to empty array if null or undefined
+        setShowtimes(showtimesData || []);
       } catch (error) {
         console.error("Error fetching showtimes:", error);
-        setShowtimes([]); // Ensure showtimes is set to an empty array on error
+        setShowtimes([]);
       }
     };
 
@@ -154,7 +179,7 @@ function MovieDetailsPage() {
   }, [movie]);
 
   const loadMoreTheaters = () => {
-    setVisibleTheaters((prevVisible) => prevVisible + 4); // Show 4 more theaters
+    setVisibleTheaters((prevVisible) => prevVisible + 4);
   };
 
   if (!movie) {
@@ -169,7 +194,6 @@ function MovieDetailsPage() {
     <div className="movie-details-container">
       <NavBar />
 
-      {/* Tab navigation directly on top of movie-details-content */}
       <div className="tab-container">
         <button
           className={activeTab === "details" ? "active-tab" : ""}
@@ -216,40 +240,38 @@ function MovieDetailsPage() {
               <div className="showtimes-container">
                 {showtimes && showtimes.length > 0 ? (
                   <div className="theaters">
-                    {showtimes
-                      .slice(0, visibleTheaters)
-                      .map((theater, index) => (
-                        <div className="theater-card" key={index}>
-                          <h3>
-                            <a
-                              href={theater.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {theater.theaterName}
-                            </a>
-                          </h3>
-                          <p>{theater.address}</p>
-                          {theater.showtimes.length > 0 ? (
-                            <div className="showtimes">
-                              {theater.showtimes.map((show, idx) => (
-                                <div key={idx} className="showtime">
-                                  <h4>{show.type}</h4>
-                                  <div className="times">
-                                    {show.times.map((time, i) => (
-                                      <span key={i} className="time">
-                                        {time}
-                                      </span>
-                                    ))}
-                                  </div>
+                    {showtimes.slice(0, visibleTheaters).map((theater, index) => (
+                      <div className="theater-card" key={index}>
+                        <h3>
+                          <a
+                            href={theater.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {theater.theaterName}
+                          </a>
+                        </h3>
+                        <p>{theater.address}</p>
+                        {theater.showtimes.length > 0 ? (
+                          <div className="showtimes">
+                            {theater.showtimes.map((show, idx) => (
+                              <div key={idx} className="showtime">
+                                <h4>{show.type}</h4>
+                                <div className="times">
+                                  {show.times.map((time, i) => (
+                                    <span key={i} className="time">
+                                      {time}
+                                    </span>
+                                  ))}
                                 </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <p>No showtimes available</p>
-                          )}
-                        </div>
-                      ))}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p>No showtimes available</p>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <p>No showtimes found for this movie.</p>
@@ -262,6 +284,76 @@ function MovieDetailsPage() {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Cast Section */}
+          <div className="cast-crew-section">
+            <h2>Cast</h2>
+            <div className="scrollable-list">
+              {cast.map((actor) => (
+                <div key={actor.id} className="cast-member">
+                  <a href={`/person/${actor.id}`}>
+                    <img
+                      src={
+                        actor.profile_path
+                          ? `https://image.tmdb.org/t/p/w92${actor.profile_path}`
+                          : "https://via.placeholder.com/92"
+                      }
+                      alt={actor.name}
+                      className="cast-photo"
+                    />
+                    <p className="cast-name">{actor.name}</p>
+                  </a>
+                  <p className="cast-character">as {actor.character}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+
+          {/* Crew Section */}
+          <div className="crew-section">
+            <h2>Crew</h2>
+            <p><strong>Director:</strong> <a href={`/person/${director.id}`}>{director}</a></p>
+
+            {writers.length > 0 && (
+              <div>
+                <strong>Writers:</strong>
+                <ul>
+                  {writers.map((writer) => (
+                    <li key={writer.id}>
+                      <a href={`/person/${writer.id}`}>{writer.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {producers.length > 0 && (
+              <div>
+                <strong>Producers:</strong>
+                <ul>
+                  {producers.map((producer) => (
+                    <li key={producer.id}>
+                      <a href={`/person/${producer.id}`}>{producer.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {cinematographers.length > 0 && (
+              <div>
+                <strong>Cinematographers:</strong>
+                <ul>
+                  {cinematographers.map((cinematographer) => (
+                    <li key={cinematographer.id}>
+                      <a href={`/person/${cinematographer.id}`}>{cinematographer.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       ) : (
