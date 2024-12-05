@@ -6,7 +6,7 @@
     
 }
 
-.chngAcc, .chngPass, .chngImg{
+.chngAcc, .chngPass, .chngImg, .chngPass{
     border-radius: 15px;
     border: none;
     cursor: pointer;

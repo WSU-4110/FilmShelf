@@ -103,8 +103,26 @@ function ProfileSettings() {
                                 </>
                                 ) : (
                                     <>
-                                        <button>Change Password</button>
-                                        <button>Change Image</button>
+                                    <div className='profileSettingsButtons'>
+                                        <button className='chngPass'>
+                                            <box-icon name='lock-alt'></box-icon>
+                                            <p>Change Password</p>
+                                        </button>
+
+                                            <button onClick={() => document.getElementById("fileInput").click()} className='chngImg'>
+                                            <box-icon name='image'></box-icon>
+                                            <p>Change Profile</p>
+                                            </button>
+                                            <input
+                                                id="fileInput"
+                                                type="file"
+                                                accept="image/jpeg, image/png"
+                                                style={{ display: 'none' }}
+                                                onChange={handleFileChange}
+                                            />
+                                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                                    </div>
+                                        
                                     </>
 
                                 )}
