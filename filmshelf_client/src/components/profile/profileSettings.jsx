@@ -104,6 +104,11 @@ function ProfileSettings() {
                                 ) : (
                                     <>
                                     <div className='profileSettingsButtons'>
+                                        <button className='chngEmail'>
+                                            <box-icon name='envelope'></box-icon>
+                                            <p>Change Email</p>
+                                        </button>
+                                        
                                         <button className='chngPass'>
                                             <box-icon name='lock-alt'></box-icon>
                                             <p>Change Password</p>
